@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+	<title>Index</title>
+	//= includes/head.html
+</head>
+<body>
+<div class="viewport" id="viewport">
+	<div class="viewport-section" id="load-content">
+		<div class="container" id="container-load">
+			<header class="header">
+				<a href="/" class="logo ajaxtrigger"></a>
+				<div class="navigation">
+					<div class="navigation__trigger">
+						<div>
+							<span></span>
+							<span></span>
+							<span></span>
+						</div>
+					</div>
+				</div>
+			</header>
+			<div class="content content-index">
+				<div class="container__rotator">
+					<div class="rotator">
+						<div class="rotator_video">
+							<div class="swiper-container">
+								<div class="swiper-wrapper">
+									<div class="rotator-video_item swiper-slide">
+										<video muted loop="loop" poster="img/desktop.jpg"><source src="video/1.mp4"  type='video/mp4'></video>
+									</div>
+									<div class="rotator-video_item swiper-slide">
+										<video muted loop="loop" poster="img/desktop.jpg"><source src="video/2.mp4"  type='video/mp4'></video>
+									</div>
+									<div class="rotator-video_item swiper-slide">
+										<video muted loop="loop" poster="img/desktop.jpg"><source src="video/3.mp4"  type='video/mp4'></video>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="rotator-video_text">
+							<div class="swiper-container">
+								<div class="swiper-wrapper">
+									<div class="rotator-text_item swiper-slide">
+										<div class="rotator-text">
+											<span>We provide</span>
+											<span>commodities</span>
+											<span>to the world</span>
+										</div>
+									</div>
+									<div class="rotator-text_item swiper-slide">
+										<div class="rotator-text">
+											<span>We provide</span>
+											<span>oil & petroleum</span>
+											<span>to the world</span>
+										</div>
+									</div>
+									<div class="rotator-text_item swiper-slide">
+										<div class="rotator-text">
+											<span>We provide</span>
+											<span>iron ore</span>
+											<span>to the world</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<script>
+					$(function(){
+						rotators();
+					});
+					</script>
+				</div>
+				//= includes/footer.html
+			</div>
+		</div>
+		<div class="pageloader" id="pageloader">
+			<a href="/company/" id="link-page" class="ajaxtrigger">
+				<span>pull up to company</span>
+			</a>
+		</div>
+	</div>
+	<nav class="navigation-area" id="index-nav">
+		<div class="navigation-content">
+			<div class="navigation-layer">
+				<div class="navigation-numbers"></div>
+				<div class="navigation-list">
+					<a href="/" class="navigation-items active ajaxtrigger"><span>Home</span></a>
+					<a href="/company/" class="navigation-items ajaxtrigger"><span>Company</span></a>
+					<a href="/products/" class="navigation-items ajaxtrigger"><span>Products</span></a>
+					<a href="/logistics/" class="navigation-items ajaxtrigger"><span>Logistics</span></a>
+					<a href="/media-center/" class="navigation-items ajaxtrigger"><span>Media center</span></a>
+					<a href="/contacts/" class="navigation-items ajaxtrigger"><span>Contact us</span></a>
+				</div>
+			</div>
+		</div>
+	</nav>
+</div>
+</body>
+</html>

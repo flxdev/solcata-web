@@ -1,0 +1,419 @@
+// @import "../../bower_components/normalize.css/normalize.css";
+@import "../../bower_components/Swiper/dist/css/swiper.css";
+@import "../../bower_components/slick-carousel/slick/slick.scss";
+@import "lib/base";
+
+html {
+	text-size-adjust: 100%;
+	height: 100%;
+	font-size: 16px;
+}
+body {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+	font-kerning: normal;
+	height: 100%;
+	min-width: 320px;
+	background-color: #ccc;
+
+}
+* {
+	margin: 0;
+	outline: none;
+}
+*, *::after, *::before {
+	box-sizing: border-box;
+}
+h1 {
+	margin: 0;
+}
+ul, ol {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+input {
+	border: none;
+	background-color: transparent;
+	padding: 0;
+	margin: 0;
+	outline: none;
+}
+button {
+	border: none;
+	outline: none;
+	background: none;
+	padding: 0;
+	cursor: pointer;
+}
+a {
+	text-decoration: none;
+}
+.viewport {
+	position: relative;
+	height: 100%;
+}
+/*----mobile----*/
+
+.viewport-section {
+	background-color: $beige;
+	height: 100%;
+}
+.content {
+	position: relative;
+	height: 100%;
+	&.content-index {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+}
+.pageloader {
+	background-color: $bordeaux;
+	@include x-rem(height, 63px);
+	@include x-rem(line-height, 63px);
+	text-align: center;
+	a {
+		font-family: $Baron;
+		@include x-rem(letter-spacing, 1.9px);
+		color: $white;
+		display: inline-block;
+		width: 100%;
+	}
+}
+.container {
+	position: relative;
+	padding: 0 20px;
+	max-width: 1024px;
+	margin: 0 auto;
+	min-height: 100%;
+	height: 100%;
+}
+.header {
+	@include x-rem(padding, 33px 0);
+	position: absolute;
+	left: 20px;
+	right: 20px;
+	top: 0;
+	.logo {
+		@include x-rem(width, 160px);
+		@include x-rem(height, 21px);
+		background-image: url(../img/icons/logo.png);
+		background-size: cover;
+		background-repeat: no-repeat;
+		position: relative;
+		display: inline-block;
+		z-index: 5;
+	}
+}
+.navigation {
+	position: relative;
+	@include x-rem(width, 50px);
+	@include x-rem(height, 50px);
+	z-index: 110;
+	opacity: 1;
+	@include x-rem(top, -13px);
+	transition: opacity 1s linear;
+	float: right;	
+	background-color: $bordeaux;	
+	.navigation__trigger {
+		width: 100%;
+		height: 100%;
+		@include x-rem(padding, 15px 10px);
+		cursor: pointer;
+		position: relative;
+		text-align: center;
+		div {
+			display: block;
+			position: relative;
+			@include x-rem(width, 30px);
+			@include x-rem(height, 22px);
+		}
+		span {
+			height: 2px;
+			width: 100%;
+			display: block;
+			background-color: $white;
+			position: absolute;
+			opacity: 1;
+			left: 0;
+			transform: rotate(0deg);
+			transition: 0.2s ease-in-out;
+			&:nth-child(1) {
+				top: 0;
+			}
+			&:nth-child(2) {
+				@include x-rem(top, 9px);
+			}
+			&:nth-child(3) {
+				@include x-rem(top, 18px);
+			}
+		}
+		&.open {
+			span {
+				&:nth-child(1) {
+					transform: rotate(135deg);
+					@include x-rem(top, 9px);
+				}
+				&:nth-child(2) {
+					opacity: 0;
+					left: -60px;
+					@include x-rem(left, -60px);
+				}
+				&:nth-child(3) {
+					transform: rotate(-135deg);
+					@include x-rem(top, 9px);
+				}
+			}
+		}
+	}
+}
+.navigation-area {
+	position: fixed;
+	background-color: rgba(53,15,13,.1);
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 109;
+	.navigation-content {
+		background-color: $beige;
+		width: 0;
+		height: 100%;
+		position: fixed;
+		top: 0;
+		right: 0;
+		z-index: 110;
+		transition: width 0.3s $bizer;
+		overflow-y: auto;
+		overflow-x: hidden;
+	}
+	.navigation-layer {
+		width: 100%;
+		min-width: 290px;
+		position: absolute;
+		left: 0;
+		@include x-rem(bottom, 40px);
+		@include x-rem(padding, 0 0 0 30px);
+		.navigation-list {
+			position: relative;
+			z-index: 4;
+			.navigation-items {
+				font-family: $Baron;
+				@include x-rem(font-size, 21px);
+				text-transform: lowercase;
+				color: $bordeaux;
+				@include x-rem(letter-spacing, 5px);
+				display: inline-block;
+				width: 100%;
+				span {
+					display: inline-block;
+					position: relative;
+					@include x-rem(padding, 8px 0);
+				}
+				&:first-child, &:nth-child(4) {
+					@include x-rem(margin-bottom, 50px);
+				}
+				&.active {
+					span {
+						&::after {
+							content: '';
+							height: 6px;
+							left: -2px;
+							bottom: 10px;
+							right: 0px;
+							background-color: $yellow;
+							position: absolute;
+							z-index: -1;
+						}
+					}
+				}
+			}
+		}
+		.navigation-numbers {
+			position: absolute;
+			@include x-rem(bottom, -20px);
+			@include x-rem(left, -80px);
+			.numb-item {
+				visibility: hidden;
+				opacity: 0;
+				transition: opacity 0.4s linear 0.1s, visibility 0.4s linear 0.1s;
+				position: absolute;
+				font-family: $GaramondProItalic;
+				@include x-rem(font-size, 350px);
+				@include x-rem(line-height, 250px);
+				bottom: 0;
+				left: 0;
+				color: $number;
+				overflow: hidden;
+				@include x-rem(padding-right, 16px);
+				&.visible {
+					opacity: 1;
+					visibility: visible;
+					transition-delay: 0s;
+				}
+			}
+		}
+	}
+}
+@media screen and (orientation: landscape) and (max-width: 480px) {
+	.navigation-area {
+		.navigation-layer {
+			position: relative;
+			@include x-rem(padding-top, 40px);
+			bottom: 0;
+			.navigation-list {
+				.navigation-items {
+					&:first-child, &:nth-child(4) {
+						@include x-rem(margin-bottom, 20px);
+					}
+				}
+			}
+		}
+	}
+}
+.view {
+	min-height: 100%;
+	height: 100%;
+	.wrap {
+		position: relative;
+		@include x-rem(padding-bottom, 150px);
+	}
+}
+.content-index {
+	.footer {
+		right: 20px;
+		left: 20px;
+	}
+}
+.footer {
+	@include clearfix;
+	position: absolute;
+	left: 0;
+	bottom: 20px;
+	right: 0;
+}
+.language {
+	position: relative;
+	width: 50%;
+	float: left;
+	opacity: 1;
+	transition: opacity 1s linear;
+	z-index: 25;
+	.language-item {
+		font-family: $GaramondProBoldItalic;
+		@include x-rem(font-size, 16px);
+		color: $bordeaux;
+		display: inline-block;
+		vertical-align: middle;
+		&.active {
+			font-family: $GaramondPro;
+		}
+	}
+	span {
+		font-family: $GaramondPro;
+		@include x-rem(font-size, 16px);
+		color: $bordeaux;
+		cursor: default;
+		pointer-events: none;
+		user-select: none;
+		display: inline-block;
+		vertical-align: middle;
+		@include x-rem(padding, 0 5px);
+	}
+}
+.requisites {
+	position: relative;
+	opacity: 1;
+	transition: opacity 0.5s linear 0s, transform 0.5s linear 0s;
+	z-index: 15;
+	@include x-rem(margin-bottom, 25px);
+	.requisites-inner {
+		p {
+			font-family: $GaramondPro;
+			@include x-rem(font-size, 16px);
+			color: $bordeaux;
+			letter-spacing: 0.7px;
+			padding-bottom: 2px;
+			strong, a {
+				font-family: $GaramondProBold;
+				font-weight: normal;
+			}
+		}
+		a {
+			font-family: $GaramondProBold;
+			font-weight: normal;
+			@include x-rem(font-size, 16px);
+			color: $bordeaux;
+		}
+	}
+}
+.developers {
+	position: relative;
+	float: right;
+	width: 50%;
+	z-index: 15;
+	text-align: right;
+	.developers-inner {
+		position: relative;
+		bottom: 0;
+		opacity: 1;
+		transition: opacity 1s linear, transform 1s linear;
+		a {
+			display: block;
+			font-family: $GaramondPro;
+			@include x-rem(font-size, 16px);
+			color: $bordeaux;
+			span {
+				font-family: $GaramondProBoldItalic;
+			}
+		}
+	}
+}
+.content-index {
+	.container__rotator {
+		position: absolute;
+		top: 0;left: 0;right: 0;bottom: 0;
+	}
+	.rotator {
+		width: 100%;
+		height: 100%;
+	}
+	.rotator_video {
+		width: 100%;
+		height: 100%;
+	}
+	.swiper-container {
+		height: 100%;
+	}
+	.rotator-video_item {
+		position: relative;
+		video {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			height: 100%;
+			transform: translate(-50%, -50%);
+		}
+	}
+	.rotator-video_text {
+		position: absolute;
+		bottom: 150px;
+		z-index: 5;
+		right: 20px;
+		left: 20px;
+		.rotator-text {
+			span {
+				display: block;
+				font-family: $BaronBlack;
+				font-size: 31px;
+				color: $bordeaux;
+				letter-spacing: 4px;
+				padding: 5px 0;
+			}
+		}
+	}
+}
