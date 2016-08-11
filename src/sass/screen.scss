@@ -1,4 +1,4 @@
-// @import "../../bower_components/normalize.css/normalize.css";
+@import "../../bower_components/normalize.css/normalize.css";
 @import "../../bower_components/Swiper/dist/css/swiper.css";
 @import "../../bower_components/slick-carousel/slick/slick.scss";
 @import "lib/base";
@@ -8,6 +8,16 @@ html {
 	height: 100%;
 	font-size: 16px;
 }
+@media screen and (min-width: 568px) {
+	html {
+		font-size: 20px;
+	}
+}
+@media screen and (min-width: 769px) {
+	html {
+		font-size: 24px;
+	}
+}
 body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -16,7 +26,78 @@ body {
 	height: 100%;
 	min-width: 320px;
 	background-color: #ccc;
-
+	&::before {
+		content: '';
+		position: fixed;
+		height: 50%;
+		left: 0;
+		width: 100%;
+		background-color: $beige;
+		z-index: 200;
+		backface-visibility: hidden;
+		transform: translateY(-100%);
+		transition: transform 0.4s 0.4s;
+		top: 0;
+	}
+	&::after {
+		content: '';
+		position: fixed;
+		height: 50%;
+		left: 0;
+		width: 100%;
+		background-color: $beige;
+		z-index: 200;
+		backface-visibility: hidden;
+		transform: translateY(100%);
+		transition: transform 0.4s 0.4s;
+		bottom: 0;
+	}
+	&.page-is-changing {
+		&::before {
+			transition: transform 0.4s 0s;
+			transform: translateY(0);
+		}
+		&::after {
+			transition: transform 0.4s 0s;
+			transform: translateY(0);
+		}
+	}
+}
+.loader-bar {
+	position: fixed;
+	z-index: 201;
+	left: 50%;
+	top: 50%;
+	height: 2px;
+	background-color: $orange;
+	width: 90%;
+	visibility: hidden;
+	transition: visibility 0s 0.4s, transform 0.4s 0s ease-in;
+	backface-visibility: hidden;
+	transform: translateX(-50%) translateY(-50%);
+	&::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		height: 100%;
+		width: 100%;
+		background-color: $bordeaux;
+		backface-visibility: hidden;
+		transform: scaleX(0);
+		transform-origin: left center;
+		transition: transform 0.8s 0.8s ease-in;
+	}
+}
+.page-is-changing {
+	.loader-bar {
+		visibility: visible;
+		transform: translateX(-50%) translateY(-50%) scaleX(0.6);
+		transition: visibility 0s 0.3s, transform 0.4s 0.4s;
+		&::before {
+			transform: scaleX(1);
+		}
+	}
 }
 * {
 	margin: 0;
@@ -58,17 +139,17 @@ a {
 
 .viewport-section {
 	background-color: $beige;
-	height: 100%;
+	min-height: 100vh;
 }
 .content {
-	position: relative;
-	height: 100%;
+	@include x-rem(padding-top, 120px);
 	&.content-index {
 		position: absolute;
 		top: 0;
 		left: 0;
 		width: 100%;
 		height: 100%;
+		padding-top: 0;
 	}
 }
 .pageloader {
@@ -89,7 +170,7 @@ a {
 	padding: 0 20px;
 	max-width: 1024px;
 	margin: 0 auto;
-	min-height: 100%;
+	min-height: 100vh;
 	height: 100%;
 }
 .header {
@@ -292,9 +373,9 @@ a {
 .footer {
 	@include clearfix;
 	position: absolute;
-	left: 0;
+	left: 20px;
 	bottom: 20px;
-	right: 0;
+	right: 20px;
 }
 .language {
 	position: relative;
@@ -341,6 +422,9 @@ a {
 			strong, a {
 				font-family: $GaramondProBold;
 				font-weight: normal;
+			}
+			a {
+				font-family: $GaramondProBoldItalic;
 			}
 		}
 		a {
@@ -414,6 +498,196 @@ a {
 				letter-spacing: 4px;
 				padding: 5px 0;
 			}
+		}
+	}
+}
+.head {
+	@include x-rem(margin-bottom, 25px);
+	.h1 {
+		font-family: $BaronBlack;
+		color: $bordeaux;
+		@include x-rem(font-size, 32px);
+		text-transform: lowercase;
+		@include x-rem(letter-spacing, 8px);
+	}
+}
+.img-cover {
+	@include x-rem(margin, 25px 0 25px);
+	display: inline-block;
+	img {
+		max-width: 100%;
+	}
+}
+.text {
+	.dash-text {
+		position: relative;
+		font-family: $GaramondProItalic;
+		@include x-rem(font-size, 42px);
+		color: $orange;
+		@include x-rem(padding-left, 55px);
+		@include x-rem(margin-bottom, 25px);
+		&::before {
+			content: '';
+			@include x-rem(width, 44px);
+			background-color: $orange;
+			height: 2px;
+			position: absolute;
+			left: 0;
+			top: 25px;
+			transform: skew(160deg);
+		}
+	}
+	p {
+		font-family: $GaramondPro;
+		@include x-rem(font-size, 16px);
+		color: $bordeaux;
+		@include x-rem(letter-spacing, 1px);
+		line-height: 1.9;
+		@include x-rem(margin-bottom, 15px);
+	}
+}
+.navigation-panel {
+	@include x-rem(padding-left, 15px);
+	@include x-rem(margin-bottom, 25px);
+	.navigation-panel_item {
+		font-family: $Baron;
+		@include x-rem(font-size, 21px);
+		color: $bordeaux;
+		@include x-rem(letter-spacing, 5px);
+		display: block;
+		@include x-rem(padding, 10px 0);
+	}
+}
+.gallery-image {
+	@include x-rem(margin-bottom, 25px);
+	img {
+		max-width: 100%;
+	}
+	.swiper-container-horizontal {
+		& >.swiper-pagination-bullets {
+			bottom: 6px;
+			.swiper-pagination-bullet {
+				margin: 0 6px;
+			}
+		}
+	}
+}
+
+.swiper-pagination-bullet {
+	width: 18px;
+	height: 18px;
+	position: relative;
+	display: inline-block;
+	background-color: transparent;
+	margin: 0 6px;
+	&::after {
+		content: '';
+		width: 6px;
+		height: 6px;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		margin: -3px 0 0 -3px;
+		background-color: $bordeaux;
+		z-index: 1;
+		border-radius: 100%;
+		transition: background-color 0.3s linear;
+		background: $white;
+	}
+	&.swiper-pagination-bullet-active {
+		&::after {
+			background-color: $white;
+			transition: background-color 0.3s linear;
+		}
+	}
+}
+.pagination {
+	position: absolute;
+	bottom: 7px;
+	z-index: 5;
+	.shadow {
+		position: absolute;
+		left: 6px;
+		top: 0;
+		background-color: $bordeaux;
+		width: 18px;
+		height: 18px;
+		border-radius: 100%;
+		transition: left 0.3s linear;
+		z-index: -1;
+	}
+}
+.product-char {
+	font-size: 0;
+	.product-char_item {
+		width: 50%;
+		display: inline-block;
+		vertical-align: top;
+		@include x-rem(margin-bottom, 25px);
+		.product-char_head {
+			font-family: $GaramondProBold;
+			@include x-rem(font-size, 16px);
+			color: $bordeaux;
+			@include x-rem(margin-bottom, 10px);
+		}
+		.product-char_body {
+			font-family: $GaramondPro;
+			@include x-rem(font-size, 16px);
+			color: $bordeaux;
+		}
+	}
+}
+.logistics {
+	.viewport-section {
+		background-color: transparent;
+		background-image: url(../img/maps.jpg);
+	}
+	.header {
+		.logo {
+			background-image: url(../img/icons/logo-logistics.png);
+		}
+	}
+	.head {
+		.h1 {
+			color: $orange;
+		}
+	}
+	.footer {
+		.requisites {
+			.requisites-inner {
+				p {
+					color: $white;
+					a {
+						color: $white;
+					}
+				}
+			}
+		}
+		.language {
+			.language-item {
+				color: $white;
+			}
+			span {
+				color: $white;
+			}
+		}
+		.developers {
+			.developers-inner {
+				a {
+					color: $white;
+				}
+			}
+		}
+	}
+	.text {
+		.dash-text {
+			color: $white;
+			&::before {
+				background-color: $white;
+			}
+		}
+		p {
+			color: $white;
 		}
 	}
 }

@@ -1,8 +1,5 @@
 $(window).load(function(){
-	setTimeout(function(){
-		$('.viewport').addClass('load');
-		$('.pjax').addClass('complete visible');
-	}, 1000);
+	$('body').removeClass('page-is-changing');
 });
 
 function Menu(){
@@ -96,7 +93,8 @@ var rotator;
 function rotators() {
 	var gRotator = $('.rotator'),
 		rVideo = gRotator.find('.rotator_video .swiper-container'),
-		rText = gRotator.find('.rotator-video_text .swiper-container');
+		rText = gRotator.find('.rotator-video_text .swiper-container'),
+		rImage = gRotator.find('.gallery-image .swiper-container');
 
 	var videoSettings = {
 		autoplay: 7000,
@@ -129,9 +127,21 @@ function rotators() {
 	var textSettings = {
 		speed: 1200,
 		loop: true,
-		effect: 'flip',
-		flip: {
-			slideShadows: false
+		effect: 'coverflow',
+		// flip: {
+		// 	slideShadows: false
+		// }
+	}
+
+	var imageSettings = {
+		speed: 1200,
+		loop: true,
+		pagination: '.gallery-image .pagination',
+		onInit: function(swiper) {
+			createShadow();
+		},
+		onSlideChangeStart: function(swiper, event){
+			bulletsShadow();
 		}
 	}
 
@@ -152,6 +162,31 @@ function rotators() {
 			swiperVideo.onResize();
 		});
 	}
+	if(typeof $('.gallery-image') == 'object' && $('.gallery-image').length > 0) {
+		if(typeof swiperVideo == 'object') {
+			swiperVideo.destroy();
+		}
+		setTimeout(function(){
+			swiperVideo = new Swiper(rImage, imageSettings);
+		},10)
+		$(window).on('resize', function(){
+			swiperVideo.onResize();
+		});
+	}
+
+	function bulletsShadow() {
+			if($('.swiper-pagination-bullet-active').length) {
+				var left = $('.swiper-pagination-bullet-active').position().left;
+				$('.pagination').find('.shadow').css('left', left + 6);
+			}
+		};
+
+		function createShadow() {
+			if($('.rotator .swiper-pagination-bullet').length === 1) {
+				$('.rotator .pagination').css('display', 'none');
+			}	
+			$('.pagination').append('<div class="shadow"></div>')
+		};
 }
 
 
@@ -230,16 +265,22 @@ $(document).ready(function () {
 						$('#container-load').removeAttr('style');
 					}
 
+					if(h.data('logistics')) {
+						$('.viewport').addClass('logistics');
+					} else {
+						$('.viewport').removeClass('logistics');
+					};
 
-					$('body').removeClass('page-is-changing');
+
+					$('body').removeClass();
 
 				}, 2000);
 			}
 		});
 	};
 
-	function changeLoad() {
-		$('body').addClass('page-is-changing');
+	function changeLoad(loader) {
+		$('body').addClass('page-is-changing').addClass(loader);
 	}
 	
 	$(window).bind("popstate", function(e) {
@@ -256,7 +297,7 @@ $(document).ready(function () {
 	$('body').on('click','.ajaxtrigger', function(event){
 		loadProject($(this).attr('href'));
 
-		changeLoad()
+		changeLoad($(this).data('loader'))
 
 		event.preventDefault();
 	});
@@ -264,7 +305,7 @@ $(document).ready(function () {
 	$('.navigation-items').on('click', function(event){
 		loadProject($(this).attr('href'));
 
-		changeLoad()
+		changeLoad('cd-main')
 
 		event.preventDefault();
 	});
