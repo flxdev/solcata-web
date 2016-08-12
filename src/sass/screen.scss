@@ -25,7 +25,7 @@ body {
 	font-kerning: normal;
 	height: 100%;
 	min-width: 320px;
-	background-color: #ccc;
+	background-color: $bordeaux;
 	&::before {
 		content: '';
 		position: fixed;
@@ -138,8 +138,9 @@ a {
 /*----mobile----*/
 
 .viewport-section {
-	background-color: $beige;
+	// background-color: $bordeaux;
 	min-height: 100vh;
+	@include x-rem(margin-bottom, 63px);
 }
 .content {
 	@include x-rem(padding-top, 120px);
@@ -157,12 +158,24 @@ a {
 	@include x-rem(height, 63px);
 	@include x-rem(line-height, 63px);
 	text-align: center;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	transform: translate(0, 100%);
+	transition: transform 0.3s ease-in-out;
+	z-index: -1;
+	&.visible {
+		transform: translate(0,0);
+	}
 	a {
 		font-family: $Baron;
 		@include x-rem(letter-spacing, 1.9px);
 		color: $white;
 		display: inline-block;
 		width: 100%;
+		position: relative;
+		z-index: 50;
 	}
 }
 .container {
@@ -172,6 +185,8 @@ a {
 	margin: 0 auto;
 	min-height: 100vh;
 	height: 100%;
+	z-index: 5;
+	background-color: $beige;
 }
 .header {
 	@include x-rem(padding, 33px 0);
@@ -485,18 +500,19 @@ a {
 	}
 	.rotator-video_text {
 		position: absolute;
-		bottom: 150px;
+		@include x-rem(bottom, 150px);
 		z-index: 5;
 		right: 20px;
 		left: 20px;
+		@include x-rem(right, 20px);
 		.rotator-text {
 			span {
 				display: block;
 				font-family: $BaronBlack;
-				font-size: 31px;
+				@include x-rem(font-size, 24px);
 				color: $bordeaux;
 				letter-spacing: 4px;
-				padding: 5px 0;
+				@include x-rem(padding, 5px 0);
 			}
 		}
 	}
@@ -638,15 +654,14 @@ a {
 	}
 }
 .logistics {
-	.viewport-section {
-		background-color: transparent;
-		background-image: url(../img/maps.jpg);
-	}
 	.header {
 		.logo {
 			background-image: url(../img/icons/logo-logistics.png);
 		}
 	}
+	.container {
+		background-color: transparent;
+		background-image: url(../img/maps.jpg);	}
 	.head {
 		.h1 {
 			color: $orange;
@@ -689,5 +704,113 @@ a {
 		p {
 			color: $white;
 		}
+	}
+	.pageloader {
+		background-color: $orange;
+	}
+}
+.cycle-rotator {
+	margin: 20px -20px;
+	.cycle {
+		overflow: hidden;
+		.items {
+			padding: 15px 0;
+			float: left;
+			.country {
+				font-family: $GaramondProBold;
+				@include x-rem(font-size, 16px);
+				color: $white;
+			}
+			.location {
+				font-family: $GaramondPro;
+				@include x-rem(font-size, 16px);
+				color: $white;
+			}
+		}
+		.slick-slide {
+			opacity: 0.05;
+			transition: opacity 2.5s linear;
+			&.slick-active {
+				opacity: 1;
+			}
+		}
+	}
+	.slick-list {
+		overflow: visible!important;
+	}
+}
+.maps {
+	@include x-rem(height, 210px);
+	width: 100%;
+	@include x-rem(margin-bottom, 25px);
+}
+
+@media screen and (min-width: 568px) {
+	.maps {
+		@include x-rem(height, 360px);
+	}
+}
+
+.link {
+	background-color: $orange;
+	display: inline-block;
+	text-align: center;
+	@include x-rem(border-radius, 20px);
+	cursor: pointer;
+	@include x-rem(margin, 20px 0);
+	span {
+		display: inline-block;
+		font-family: $GaramondProBoldItalic;
+		@include x-rem(font-size, 16px);
+		color: $white;
+		letter-spacing: 1.2px;
+		@include x-rem(padding, 11px 24px);
+		user-select: none;
+	}
+}
+
+.cap {
+	position: fixed;
+	z-index: 999;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: $bordeaux;
+	display: none;
+	.cap-inner {
+		width: 260px;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		text-align: center;
+		a {
+			line-height: 19px;
+			font-size: 13px;
+			font-family: $Baron;
+			text-transform: lowercase;
+			color: $white;			
+			padding-top: 100px;
+			position: relative;
+			&::after {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 50%;
+				background-image: url(../img/svg/imac.svg);
+				width: 111px;
+				height: 87px;
+				transform: translate(-12%);
+			}
+		}
+	}
+}
+@media screen and (min-width: 1024px) {
+	body {
+		overflow: hidden;
+	}
+	.cap {
+		display: block;
 	}
 }

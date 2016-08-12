@@ -93,8 +93,6 @@ var WebPullToRefresh = (function () {
 	 */
 	var _panDown = function(e) {
 
-		console.log('panDown')
-
 		if ( ! pan.enabled ) {
 			return;
 		}

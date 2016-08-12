@@ -13,7 +13,7 @@
 		<script src="js/lib/html5shiv.min.js"></script>
 	<![endif]-->
 	
-	<!-- <script src="https://maps.googleapis.com/maps/api/js" type="text/javascript"></script> -->
+	<script src="https://maps.googleapis.com/maps/api/js" type="text/javascript"></script>
 	
 	<script src="js/common.js"></script>
 </head>
@@ -40,13 +40,15 @@
 							<div class="swiper-container">
 								<div class="swiper-wrapper">
 									<div class="rotator-video_item swiper-slide">
-										<video muted loop="loop" poster="img/desktop.jpg"><source src="video/1.mp4"  type='video/mp4'><source src="video/1.ogg"  type='video/ogg'></video>
+										<video muted loop="loop" poster="/img/desktop.jpg">
+											<source src="/video/1.mp4"  type='video/mp4'>
+										</video>
 									</div>
 									<div class="rotator-video_item swiper-slide">
-										<video muted loop="loop" poster="img/desktop.jpg"><source src="video/2.mp4"  type='video/mp4'><source src="video/2.ogg"  type='video/ogg'></video>
+										<video muted loop="loop" poster="/img/desktop.jpg"><source src="/video/2.mp4"  type='video/mp4'></video>
 									</div>
 									<div class="rotator-video_item swiper-slide">
-										<video muted loop="loop" poster="img/desktop.jpg"><source src="video/3.mp4"  type='video/mp4'><source src="video/3.ogg"  type='video/ogg'></video>
+										<video muted loop="loop" poster="/img/desktop.jpg"><source src="/video/3.mp4"  type='video/mp4'></video>
 									</div>
 								</div>
 							</div>
@@ -56,23 +58,23 @@
 								<div class="swiper-wrapper">
 									<div class="rotator-text_item swiper-slide">
 										<div class="rotator-text">
-											<span>We provide</span>
-											<span>commodities</span>
-											<span>to the world</span>
+											<span data-swiper-parallax="-100">We provide</span>
+											<span data-swiper-parallax="-300">commodities</span>
+											<span data-swiper-parallax="-500">to the world</span>
 										</div>
 									</div>
 									<div class="rotator-text_item swiper-slide">
 										<div class="rotator-text">
-											<span>We provide</span>
-											<span>oil & petroleum</span>
-											<span>to the world</span>
+											<span data-swiper-parallax="-100">We provide</span>
+											<span data-swiper-parallax="-300">oil & petroleum</span>
+											<span data-swiper-parallax="-500">to the world</span>
 										</div>
 									</div>
 									<div class="rotator-text_item swiper-slide">
 										<div class="rotator-text">
-											<span>We provide</span>
-											<span>iron ore</span>
-											<span>to the world</span>
+											<span data-swiper-parallax="-100">We provide</span>
+											<span data-swiper-parallax="-300">iron ore</span>
+											<span data-swiper-parallax="-500">to the world</span>
 										</div>
 									</div>
 								</div>
@@ -80,9 +82,9 @@
 						</div>
 					</div>
 					<script>
-					$(function(){
-						rotators();
-					});
+						$(function(){
+							rotators();
+						});
 					</script>
 				</div>
 				<footer class="footer">
@@ -126,5 +128,8 @@
 	</nav>
 </div>
 <div class="loader-bar"></div>
+<div class="cap">
+	<div class="cap-inner"><a href="">Открыть версию для десктопных устройств</a></div>
+</div>
 </body>
 </html>
