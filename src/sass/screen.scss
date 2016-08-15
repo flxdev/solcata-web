@@ -185,7 +185,6 @@ a {
 	margin: 0 auto;
 	min-height: 100vh;
 	height: 100%;
-	z-index: 5;
 	background-color: $beige;
 }
 .header {
@@ -743,6 +742,9 @@ a {
 	@include x-rem(height, 210px);
 	width: 100%;
 	@include x-rem(margin-bottom, 25px);
+	.gm-style-cc {
+		display: none;
+	}
 }
 
 @media screen and (min-width: 568px) {

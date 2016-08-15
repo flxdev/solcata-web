@@ -7,8 +7,5 @@
 //= lib/TimelineLite.min.js
 //= lib/CSSPlugin.min.js
 
-//= lib/modernizr.js
-//= lib/hammer.2.0.4.js
-
 
 //= app.js
