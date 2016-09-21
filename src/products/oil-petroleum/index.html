@@ -6,8 +6,8 @@
 </head>
 <body>
 <div class="viewport" id="viewport">
-	<div class="viewport-section" id="load-content">
-		<div class="container" id="container-load">
+	<div class="viewport-inner">
+		<div class="scroll">
 			<header class="header">
 				<a href="/" class="logo ajaxtrigger"></a>
 				<div class="navigation">
@@ -20,77 +20,88 @@
 					</div>
 				</div>
 			</header>
-			<div class="content">
-				<div class="view" id="view">
-					<div class="wrap">
-						<div class="head">
-							<div class="h1">Iron ore</div>
-						</div>
-						<div class="content-section">
-							<div class="rotator">
-								<div class="gallery-image">
-									<div class="swiper-container">
-										<div class="swiper-wrapper">
-											<div class="gallery-image_item swiper-slide">
-												<img src="../../img/content.jpg" alt="">
-											</div>
-											<div class="gallery-image_item swiper-slide">
-												<img src="../../img/content.jpg" alt="">
+			<div class="viewport-section" id="load-content">
+				<div class="container" id="container-load">
+					<div class="content">
+						<div class="view" id="view">
+							<div class="wrap">
+								<div class="head">
+									<div class="h1">Iron ore</div>
+								</div>
+								<div class="content-section">
+									<div class="rotator">
+										<div class="gallery-image">
+											<div class="swiper-container">
+												<div class="swiper-wrapper">
+													<div class="gallery-image_item swiper-slide">
+														<img src="../../img/content.jpg" alt="">
+													</div>
+													<div class="gallery-image_item swiper-slide">
+														<img src="../../img/content.jpg" alt="">
+													</div>
+												</div>
+												<div class="pagination"></div>
 											</div>
 										</div>
-										<div class="pagination"></div>
+										<script>
+											$(function(){
+												rotators();
+											})
+										</script>
+									</div>
+									<div class="text">
+										<p><strong>Solcata is one of the world’s largest independent traders by volume of oil and petroleum products – one of the few with a global presence and comprehensive product coverage.</strong> We have extensive logistical and storage capability around the world. As a global trading house we have a detailed overview of macro and micro trends. As physical traders, we gain first-hand experience of economic fundamentals as they play out on the ground. We emphasise service and performance.</p>
+									</div>
+									<div class="product-char">
+										<div class="product-char_item">
+											<div class="product-char_head">Variety:</div>
+											<div class="product-char_body">Cavendish (Musa AAA)</div>
+										</div>
+										<div class="product-char_item">
+											<div class="product-char_head">Package:</div>
+											<div class="product-char_body">Carton boxes, 12 to 20 kg net</div>
+										</div>
+										<div class="product-char_item">
+											<div class="product-char_head">Brands:</div>
+											<div class="product-char_body">SolFruit, Dexter, Golfito</div>
+										</div>
 									</div>
 								</div>
-								<script>
-									$(function(){
-										rotators();
-									})
-								</script>
 							</div>
-							<div class="text">
-								<p><strong>Solcata is one of the world’s largest independent traders by volume of oil and petroleum products – one of the few with a global presence and comprehensive product coverage.</strong> We have extensive logistical and storage capability around the world. As a global trading house we have a detailed overview of macro and micro trends. As physical traders, we gain first-hand experience of economic fundamentals as they play out on the ground. We emphasise service and performance.</p>
-							</div>
-							<div class="product-char">
-								<div class="product-char_item">
-									<div class="product-char_head">Variety:</div>
-									<div class="product-char_body">Cavendish (Musa AAA)</div>
-								</div>
-								<div class="product-char_item">
-									<div class="product-char_head">Package:</div>
-									<div class="product-char_body">Carton boxes, 12 to 20 kg net</div>
-								</div>
-								<div class="product-char_item">
-									<div class="product-char_head">Brands:</div>
-									<div class="product-char_body">SolFruit, Dexter, Golfito</div>
-								</div>
-							</div>
+							//= includes/footer.html
 						</div>
 					</div>
-					//= includes/footer.html
+				</div>
+				<div class="pageloader" id="pageloader">
+					<a href="/products/" id="link-page" class="ajaxtrigger">
+						<span>push to back</span>
+					</a>
 				</div>
 			</div>
-		</div>
-		<div class="pageloader" id="pageloader">
-			<a href="/products/" id="link-page" class="ajaxtrigger">
-				<span>pull up to back</span>
-			</a>
+			<nav class="navigation-area" id="index-nav">
+				<div class="navigation-content">
+					<div class="navigation-layer">
+						<div class="navigation-numbers"></div>
+						<div class="navigation-list">
+							<a href="/" class="navigation-items ajaxtrigger"><span>Home</span></a>
+							<a href="/company/" class="navigation-items ajaxtrigger"><span>Company</span></a>
+							<a href="/products/" class="navigation-items ajaxtrigger active"><span>Products</span></a>
+							<a href="/logistics/" class="navigation-items ajaxtrigger"><span>Logistics</span></a>
+							<a href="/contacts/" class="navigation-items ajaxtrigger"><span>Contact us</span></a>
+						</div>
+					</div>
+				</div>
+			</nav>
 		</div>
 	</div>
-	<nav class="navigation-area" id="index-nav">
-		<div class="navigation-content">
-			<div class="navigation-layer">
-				<div class="navigation-numbers"></div>
-				<div class="navigation-list">
-					<a href="/" class="navigation-items ajaxtrigger"><span>Home</span></a>
-					<a href="/company/" class="navigation-items ajaxtrigger"><span>Company</span></a>
-					<a href="/products/" class="navigation-items ajaxtrigger active"><span>Products</span></a>
-					<a href="/logistics/" class="navigation-items ajaxtrigger"><span>Logistics</span></a>
-					<a href="/contacts/" class="navigation-items ajaxtrigger"><span>Contact us</span></a>
-				</div>
-			</div>
-		</div>
-	</nav>
 </div>
-<div class="loader-bar"></div>
+<div class="loader-bar">
+	<span></span>
+	<span></span>
+	<span></span>
+</div>
+<div class="cap">
+	<div class="cap-inner"><a href="">Открыть версию для десктопных устройств</a></div>
+</div>
 </body>
 </html>

@@ -16,17 +16,15 @@ function Menu(){
 		var _ = $(this);
 		view.addClass('return');
 		if(!_.hasClass('open')) {
-			body.css('overflow', 'hidden');
 			tl
 				.set(_, {className: '+=open'})
-				.to(area, 0.3, {autoAlpha: 1, ease:Power3.easeInOut})
-				.to(content, 0.3, {width: '88%', ease:Power3.easeInOut}, 0)
+				.to(area, 0.2, {autoAlpha: 1, ease:Power0.easeNone})
+				.to(content, 0.2, {width: '88%', ease:Power0.easeNone}, 0)
 		} else {
-			body.css('overflow', 'visible');
 			tl
 				.set(_, {className: '-=open'})
-				.to(content, 0.3, {width: '0', ease:Power3.easeInOut}, 0)
-				.to(area, 0.3, {autoAlpha: 0, delay: 0.2, ease:Power3.easeInOut})
+				.to(content, 0.2, {width: '0', ease:Power0.easeNone}, 0)
+				.to(area, 0.2, {autoAlpha: 0, delay: 0.1, ease:Power0.easeNone})
 		}
 
 			
@@ -34,8 +32,8 @@ function Menu(){
 	area.on('click', function(){
 		tl
 			.set(trigger, {className: '-=open'})
-			.to(content, 0.3, {width: '0', ease:Power3.easeInOut}, 0)
-			.to(area, 0.3, {autoAlpha: 0, delay: 0.2, ease:Power3.easeInOut})
+			.to(content, 0.2, {width: '0', ease:Power0.easeNone}, 0)
+			.to(area, 0.2, {autoAlpha: 0, delay: 0.1, ease:Power0.easeNone})
 		view.removeClass('return');
 	});
 	content.on('click', function(event){
@@ -59,7 +57,7 @@ function menuNumbers(){
 		tl = new TimelineLite();
 
 	for(var i = 0; i <= numbersItemLength - 1; i++) {
-		numbers.append('<div class="numb-item">0' + (i +1) + '</div>')
+		numbers.append('<div class="numb-item">0' + (i + 1) + '</div>')
 	}
 
 	var activeIndex = list.find('.active').index();
@@ -72,18 +70,23 @@ function menuNumbers(){
 		.set(container, {autoAlpha: 1});
 
 	numbersItem.on('click', function(event){
-		var _ = $(this);
+		var _ = $(this),
+			index = _.index();
 
+		console.log(index)
+
+
+		numbers.children().eq(index).addClass('visible').siblings().removeClass('visible');
 		_.addClass('active').siblings().removeClass('active');
 
 		view.removeClass('return');
-		body.css('overflow', 'visible');
+		body.css('overflow', 'hidden');
 
 		tl
 			.set(trigger, {className: '-=open'})
 
-			.to(content, 0.5, {width: '0', ease:Power3.easeInOut})
-			.to(area, 0.5, {autoAlpha: 0, ease:Power3.easeInOut})
+			.to(content, 0.2, {width: '0', ease:Power3.easeInOut})
+			.to(area, 0.2, {autoAlpha: 0, ease:Power3.easeInOut})
 			
 		event.preventDefault();
 
@@ -104,24 +107,28 @@ function rotators() {
 		noSwiping: false,
 		runCallbacksOnInit: false,
 		effect: 'fade',
+		longSwipesMs: 10,
+		longSwipesRatio: 0.1,
 		onInit: function(swiper) {
 
-			setTimeout(function(){
-				$("video").each(function(){
-					$(this).get(0).play();
-				});
-				$('video').trigger('play');
-			},5000);
+			// setTimeout(function(){
+			// 	$("video").each(function(){
+			// 		$(this).get(0).play();
+			// 	});
+			// 	$('video').trigger('play');
+			// },5000);
 		},
 		onSlideChangeStart: function(swiper) {
-			var nextVideo = rVideo.find('.swiper-slide-active').find('video')[0];	
-			nextVideo.play();			
+			// var nextVideo = rVideo.find('.swiper-slide-active').find('video')[0];	
+			// nextVideo.play();			
 		}
 	};
 	var textSettings = {
 		speed: 1200,
 		loop: true,
-		parallax: true
+		parallax: true,
+		longSwipesMs: 10,
+		longSwipesRatio: 0.1,
 		// effect: 'coverflow',
 		// flip: {
 		// 	slideShadows: false
@@ -186,19 +193,49 @@ function rotators() {
 }
 
 
-var map;
-function initialize() {
+function initMap() {
+	$(window).bind(initialize());
+};
+
+function ZoomControl(controlDiv, map) {
+	controlDiv.style.padding = "15px";
+
+	var controlWrapper = document.createElement('div');
+		controlWrapper.style.cursor = 'pointer';
+		controlWrapper.style.textAlign = 'center';
+		controlWrapper.style.width = '25px'; 
+		controlWrapper.style.height = '50px';
+		controlDiv.appendChild(controlWrapper);
+
+	var zoomInButton = document.createElement('div');
+		zoomInButton.classList.add("zoomIn");
+		zoomInButton.style.width = '25px'; 
+		zoomInButton.style.height = '25px';
+		controlWrapper.appendChild(zoomInButton);
+
+	var zoomOutButton = document.createElement('div');
+		zoomOutButton.classList.add("zoomOut");
+		zoomOutButton.style.width = '25px'; 
+		zoomOutButton.style.height = '25px';
+		controlWrapper.appendChild(zoomOutButton);
+
+	google.maps.event.addDomListener(zoomInButton, 'click', function() {
+		map.setZoom(map.getZoom() + 1);
+	});
+
+	google.maps.event.addDomListener(zoomOutButton, 'click', function() {
+		map.setZoom(map.getZoom() - 1);
+	});
+}
+
+function initialize(){
 	var stylez = [{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"lightness":"13"},{"color":"#30070c"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ec1235"},{"lightness":"-44"}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#d66776"},{"lightness":"-33"}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#aa3838"},{"lightness":"-41"},{"weight":1.2}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#a71623"},{"lightness":"-26"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#821620"},{"lightness":"-23"}]},{"featureType":"poi.sports_complex","elementType":"all","stylers":[{"color":"#821620"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ca1a30"},{"lightness":"-34"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#570f11"},{"lightness":"-27"},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#a01628"},{"lightness":"-41"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#800516"},{"lightness":"-22"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#711214"},{"lightness":"-29"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#590c15"},{"lightness":"0"}]}];
 	var mapOptions = {
-		zoom: 10,
+		zoom: 14,
 		disableDefaultUI: true,
 		scrollwheel: false,
 		panControl: false,
-		zoomControl: true,
-		zoomControlOptions: {
-			style: google.maps.ZoomControlStyle.SMALL,
-			position: google.maps.ControlPosition.RIGHT_CENTER
-		},
+		zoomControl: false,
 		scaleControl: true,
 		center: new google.maps.LatLng(55.872686, 37.43495)
 	};
@@ -215,17 +252,32 @@ function initialize() {
 		icon: image,
 		title:""
 	});
-}
-google.maps.event.addDomListener(window, 'load', initialize);
 
-
-if(document.getElementById('maps')){
 	google.maps.event.addDomListener(window, "resize", function() {
 		var center = map.getCenter();
 		google.maps.event.trigger(map, "resize");
 		map.setCenter(center); 
 	});
-}
+
+	var zoomControlDiv = document.createElement('div');
+  	var zoomControl = new ZoomControl(zoomControlDiv, map);
+
+  	zoomControlDiv.index = 1;
+	map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(zoomControlDiv);
+
+};
+
+function gMaps(){
+	var sct_tag = document.createElement("script");
+	if(typeof(google) != 'object') {
+		sct_tag.setAttribute("type", "text/javascript");
+		sct_tag.setAttribute("src", "https://maps.googleapis.com/maps/api/js?key=AIzaSyCcDrkEbKdrAWUT7ZorYyn-NwTj9YD6DN4&callback=initMap");
+		$(".maps").parent().append(sct_tag);
+	}
+	else {
+		$(initialize);
+	}
+};
 
 function cycleRotator() {
 	$('.cycle').slick({
@@ -267,6 +319,7 @@ var PullMobile = function(){
 		contentEl: 'load-content',
 		ptrEl: 'pageloader', 
 		distanceToRefresh: 70,
+		loadingFunction: false,
 		resistance: 2.5
 	};
 
@@ -288,6 +341,7 @@ var PullMobile = function(){
 			contentEl: params.contentEl || document.getElementById(defaults.contentEl),
 			ptrEl: params.ptrEl || document.getElementById(defaults.ptrEl),
 			distanceToRefresh: params.distanceToRefresh || defaults.distanceToRefresh,
+			loadingFunction: params.loadingFunction || defaults.loadingFunction,
 			resistance: params.resistance || defaults.resistance
 		};
 
@@ -302,7 +356,7 @@ var PullMobile = function(){
 		h.on('panstart', this._panStart);
 		h.on('panup', this._panUp);
 		h.on('pandown', this._panDown);
-		h.on( 'panend', this._panEnd);
+		h.on('panend', this._panEnd);
 	};
 
 	this._panStart = function() {
@@ -343,8 +397,8 @@ var PullMobile = function(){
 	};
 
 	this._setPanContent = function(){
-		document.getElementById('container-load').style.transform = document.getElementById('container-load').style.webkitTransform = 'translate3d( 0, -' + pan.distance + 'px, 0 )';
-		document.getElementById('pageloader').style.transform = document.getElementById('pageloader').style.webkitTransform = 'translate3d( 0, -' + pan.distance + 'px, 0 )';
+		document.getElementById('container-load').style.webkitTransform = 'translate3d( 0, -' + pan.distance + 'px, 0 )';
+		document.getElementById('pageloader').style.webkitTransform = 'translate3d( 0, -' + pan.distance + 'px, 0 )';
 	};
 
 	this._panEnd = function(e) {
@@ -354,8 +408,12 @@ var PullMobile = function(){
 
 		e.preventDefault();
 
-		document.getElementById('container-load').style.transform = document.getElementById('container-load').style.webkitTransform = '';
-		document.getElementById('pageloader').style.transform = document.getElementById('pageloader').style.webkitTransform = '';
+		document.getElementById('container-load').style.webkitTransform = '';
+		document.getElementById('pageloader').style.webkitTransform = '';
+
+		if(document.body.classList.contains("ptr-refresh")) {
+			self._doLoading();
+		}
 
 		pan.distance = 0;
 		pan.enabled = false;
@@ -369,16 +427,41 @@ var PullMobile = function(){
 			bodyClass.remove( 'ptr-refresh' );
 		}		
 	};
+
+	this._doLoading = function(){
+		bodyClass.add('loading');
+		setTimeout(function(){
+			$(options.contentEl).find("#link-page").trigger("click");
+		}, 500);			
+	};
 };
 
-// window.onload = function(){
-// 	var pull = new PullMobile;
-// 	pull.init();
-// };
+var _doReset = function() {
+	var bodyClass = document.body.classList;
+		bodyClass.remove('loading');
+		bodyClass.remove('ptr-refresh');
+		bodyClass.add('ptr-reset');
+
+		var bodyClassRemove = function() {
+			bodyClass.remove('ptr-reset');
+			document.body.removeEventListener( 'transitionend', bodyClassRemove, false );
+		};
+
+		document.body.addEventListener( 'transitionend', bodyClassRemove, false );
+	};
+
+window.onload = function(){
+	// var pull = new PullMobile;
+	// pull.init();
+};
 
 $(document).ready(function () {
 	Menu();
 	menuNumbers();
+
+	// $('.viewport-inner').perfectScrollbar({
+	// 	suppressScrollX: true
+	// });
 
 	function loadProject(link) {
 		$.ajax({
@@ -393,36 +476,33 @@ $(document).ready(function () {
 				var nav = h.find('#pageloader').children();
 
 				setTimeout(function(){
-					$('#container-load').html(cont);
-					$('#pageloader').html(nav);
+					$('#container-load').html(cont).promise().done(function(){
+						window.history.pushState("page" + link, link, link);
+						window.history.replaceState("page" + link, link, link);
+						
+						replaceAttr(b);
 
-					replaceAttr(b);
+						if($('.content-index').length) {
+							heightContainer();
+						} else {
+							$('#container-load').removeAttr('style');
+						}
 
-					window.history.pushState("page" + link, link, link);
-					window.history.replaceState("page" + link, link, link);
+						if(h.data('logistics')) {
+							$('.viewport').addClass('logistics');
+						} else {
+							$('.viewport').removeClass('logistics');
+						};
+						$(".scroll").scrollTop(0);
+						_doReset();
+						setTimeout(function(){
+							$('#pageloader').html(nav);
+							$("body").removeClass('page-is-changing');
+							// $('.viewport-inner').perfectScrollbar('update');
+						}, 500);
 
-					Menu();
-					menuNumbers();
-
-					$('body').removeClass().scrollTop(0);
-
-					if($('.content-index').length) {
-						heightContainer();
-					} else {
-						$('#container-load').removeAttr('style');
-					}
-
-					if(h.data('logistics')) {
-						$('.viewport').addClass('logistics');
-					} else {
-						$('.viewport').removeClass('logistics');
-					};
-
-					if(h.find('.maps')) {
-						initialize();
-					};
-
-				}, 2000);
+					});					
+				}, 500);
 			}
 		});
 	};
@@ -451,9 +531,13 @@ $(document).ready(function () {
 	});
 
 	$('.navigation-items').on('click', function(event){
-		loadProject($(this).attr('href'));
+		var attr = $(this).attr('href')
+		setTimeout(function(){
+			loadProject(attr);
 
-		changeLoad('cd-main')
+			changeLoad('cd-main');
+		}, 500);
+			
 
 		event.preventDefault();
 	});
@@ -461,15 +545,18 @@ $(document).ready(function () {
 	function heightContainer() {
 		function mHeigth() {
 		 	var cIndex = $('.content-index').parents('.container'),
+		 		vp = $(".viewport-section"),
 		 		wh = $(window).height();
 
-		 		if(wh <= 568) {
-		 			cIndex.css('min-height', 568);
+		 		if(wh <= 320) {
+		 			cIndex.css('min-height', 480);
+		 			vp.css('min-height', 480);
 		 		} else {
 		 			cIndex.css('min-height', wh);
+		 			vp.css('min-height', wh);
 		 		}
 		 	
-		} mHeigth();
+		}  mHeigth();
 		$(window).on('resize', function(){
 			mHeigth();
 		});
@@ -487,19 +574,7 @@ $(document).ready(function () {
 		curlist.prev().find('.numb-item').eq(r).addClass('visible').siblings().removeClass('visible');
 	};
 
-	function showLoader() {
-		var winH = $(window).height(),
-			loader = $('.pageloader'),
-			rectB = $('.viewport-section')[0].getBoundingClientRect().bottom;
-
-		if(winH === rectB + loader.height()) {
-			loader.addClass('visible');
-		} else {
-			loader.removeClass('visible');
-		}
-	} showLoader();
-
-	$(window).on('load scroll', function(){
-		showLoader();
-	});
+	$(window, document, 'body').on("scroll", function(){
+		return false;
+	})
 });
