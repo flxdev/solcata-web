@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+<head>
+	<title>Contacts</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, maximum-scale=1">
+	
+	<link rel="stylesheet" href="../css/screen.css">
+	
+	<!--[if lt IE 9]>
+		<script src="js/lib/html5shiv.min.js"></script>
+	<![endif]-->
+	<script src="../js/common.js"></script>
+</head>
+<body>
+<div class="viewport" id="viewport">
+	<div class="viewport-inner">
+		<div class="scroll">
+			<header class="header">
+				<a href="/" class="logo ajaxtrigger"></a>
+				<div class="navigation">
+					<div class="navigation__trigger">
+						<div>
+							<span></span>
+							<span></span>
+							<span></span>
+						</div>
+					</div>
+				</div>
+			</header>
+			<div class="viewport-section" id="load-content">
+				<div class="container" id="container-load">
+					<div class="content">
+						<div class="view" id="view">
+							<div class="wrap">
+								<div class="head">
+									<div class="h1">Contact us</div>
+								</div>
+								<div class="content-section">
+									<div id="maps" class="maps"></div>
+									<script>
+										$(gMaps);
+									</script>
+									<div class="text">
+										<a class="link" data-popup="callback">
+											<span>Send us a message</span>
+										</a>
+									</div>
+								</div>
+							</div>
+							<footer class="footer">
+								<div class="requisites">
+									<div class="requisites-inner">
+										<p><strong>Solcata SA</strong> Rue Agasse 54, 1208 Geneva, Switzerland</p>
+										<p>+41 76 5838056, <a href="mailto:info@solcata.com">info@solcata.com</a></p>
+									</div>
+								</div>
+								<div class="language">
+									<a href="" class="language-item active">En</a><span>—</span><a href="" class="language-item">Fr</a>
+								</div>
+								<div class="developers">
+									<div class="developers-inner">
+										<a href="">Made in <span>Flexmedia</span></a>
+									</div>
+								</div>
+							</footer>
+						</div>
+					</div>
+				</div>
+				<div class="pageloader" id="pageloader">
+					<a href="/" id="link-page" class="ajaxtrigger">
+						<span>push to home</span>
+					</a>
+				</div>
+			</div>
+			<nav class="navigation-area" id="index-nav">
+				<div class="navigation-content">
+					<div class="navigation-layer">
+						<div class="navigation-numbers"></div>
+						<div class="navigation-list">
+							<a href="/" class="navigation-items ajaxtrigger"><span>Home</span></a>
+							<a href="/company/" class="navigation-items ajaxtrigger"><span>Company</span></a>
+							<a href="/products/" class="navigation-items ajaxtrigger"><span>Products</span></a>
+							<a href="/logistics/" class="navigation-items ajaxtrigger"><span>Logistics</span></a>
+							<a href="/contacts/" class="navigation-items ajaxtrigger active"><span>Contact us</span></a>
+						</div>
+					</div>
+				</div>
+			</nav>
+		</div>
+		<div class="popup__wrapper" data-wrapper-popup="callback">
+			<div class="popup">
+				<div class="popup__head">
+					<div class="logo ajaxtrigger"></div>
+					<div class="close close__popup">
+						<div>
+							<span></span>
+							<span></span>
+						</div>
+					</div>
+				</div>
+				<div class="popup__body">
+					<div class="popup__title">contact form</div>
+					<div class="form">
+						<form action="" class="js-validate">
+							<div class="field">
+								<div class="field__head">Your name</div>
+								<div class="field__body">
+									<input type="text" data-validation="length" data-validation-length="min1">
+								</div>
+							</div>
+							<div class="field">
+								<div class="field__head">Your e-mail / phone number</div>
+								<div class="field__body">
+									<input type="text" data-validation="length" data-validation-length="min1">
+								</div>
+							</div>
+							<div class="field">
+								<div class="field__head">Your message</div>
+								<div class="field__body">
+									<input type="text" data-validation="length" data-validation-length="min1">
+								</div>
+							</div>
+							<div class="field">
+								<button class="link" type="submit">
+									<span>Send us a message</span>
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="popup__success">
+					<div class="text">Thank you! In the near future we will call you back.</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			$(function(){
+				validator();
+			});
+		</script>
+	</div>
+</div>
+<div class="loader-bar">
+	<span></span>
+	<span></span>
+	<span></span>
+</div>
+<div class="cap">
+	<div class="cap-inner"><a href="">Открыть версию для десктопных устройств</a></div>
+</div>
+</body>
+</html>
