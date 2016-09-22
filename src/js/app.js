@@ -454,6 +454,7 @@ window.onload = function(){
 	// var pull = new PullMobile;
 	// pull.init();
 };
+
 function validator() {
 		var form_validate = $('.js-validate');
 	if (form_validate.length) {
