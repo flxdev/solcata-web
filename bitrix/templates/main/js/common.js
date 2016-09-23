@@ -130,13 +130,15 @@ function Menu(){
 			.set(content, {width: '0'})
 	trigger.on('click', function(){
 		var _ = $(this);
-		view.addClass('return');
 		if(!_.hasClass('open')) {
+
+			view.addClass('return');
 			tl
 				.set(_, {className: '+=open'})
 				.to(area, 0.2, {autoAlpha: 1, ease:Power0.easeNone})
 				.to(content, 0.2, {width: '88%', ease:Power0.easeNone}, 0)
 		} else {
+			view.removeClass('return');
 			tl
 				.set(_, {className: '-=open'})
 				.to(content, 0.2, {width: '0', ease:Power0.easeNone}, 0)
