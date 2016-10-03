@@ -33,7 +33,7 @@ body {
 
 	.container, .navigation-area {
 		opacity: 1;
-		transition: opacity 0.3s ease;
+		transition: opacity 0.3s ease, visibility 0.3s ease;
 	}
 	&.page-is-changing {
 		.container, .navigation-area {
@@ -414,17 +414,29 @@ a {
 	width: 100%;
 	height: 100%;
 	z-index: 109;
+	opacity: 0!important;
+	visibility: hidden;
+	transition: opacity 0.2s $bizer 0.2s, visibility 0.2s $bizer 0.2s!important;
 	.navigation-content {
 		background-color: $beige;
-		width: 0;
+		width: 88%;
 		height: 100%;
 		position: absolute;
 		top: 0;
 		right: 0;
 		z-index: 110;
-		transition: width 0.3s $bizer;
+		transition: transform 0.2s $bizer;
 		overflow-y: auto;
 		overflow-x: hidden;
+		transform: translate(100%,0);
+	}
+	&.visible {
+		opacity: 1!important;
+		visibility: visible;
+		transition-delay: 0s!important;
+		.navigation-content {
+			transform: translate(0%,0);
+		}
 	}
 	.navigation-layer {
 		width: 100%;
@@ -522,12 +534,18 @@ a {
 }
 .content-index {
 	.footer {
-		right: 20px;
-		left: 20px;
+		right: auto;
+		left: auto;
+		z-index: 50;
+		@include x-rem(margin-top, -100px);
+		width: 100%;
+		padding: 0 20px;
+		position: relative;
+		opacity: 1
 	}
 }
 .footer {
-	@include clearfix;
+	// @include clearfix;
 	position: absolute;
 	left: 20px;
 	bottom: 20px;
@@ -537,8 +555,6 @@ a {
 	position: relative;
 	width: 50%;
 	float: left;
-	opacity: 1;
-	transition: opacity 1s linear;
 	z-index: 25;
 	.language-item {
 		font-family: $GaramondProBoldItalic;
@@ -564,9 +580,9 @@ a {
 }
 .requisites {
 	position: relative;
-	opacity: 1;
-	transition: opacity 0.5s linear 0s, transform 0.5s linear 0s;
-	z-index: 15;
+	// opacity: 1;
+	// transition: opacity 0.5s linear 0s, transform 0.5s linear 0s;
+	z-index: 25;
 	@include x-rem(margin-bottom, 25px);
 	.requisites-inner {
 		p {
@@ -595,13 +611,13 @@ a {
 	position: relative;
 	float: right;
 	width: 50%;
-	z-index: 15;
+	z-index: 25;
 	text-align: right;
 	.developers-inner {
 		position: relative;
-		bottom: 0;
-		opacity: 1;
-		transition: opacity 1s linear, transform 1s linear;
+		// bottom: 0;
+		// opacity: 1;
+		// transition: opacity 1s linear, transform 1s linear;
 		a {
 			display: block;
 			font-family: $GaramondPro;
@@ -615,29 +631,42 @@ a {
 }
 .content-index {
 	.container__rotator {
-		position: absolute;
+		position: relative;
 		top: 0;left: 0;
 		width: 100%;
 		height: 100%;
+		// z-index: 0;
 	}
 	.rotator {
 		width: 100%;
 		height: 100%;
 		position: relative;
+		// z-index: 9;
+		.slick-wrapper {
+			width: 100%;
+			height: 100%;
+		}
 	}
 	.rotator_video {
 		width: 100%;
 		height: 100%;
 		position: relative;
-		z-index: 4;
+		// z-index: 4;
+		&::after {
+			content: "";
+			position: absolute;
+			top: 0;left: 0;right: 0;bottom: 0;
+			z-index: 1;
+		}
 	}
 	.swiper-container {
 		height: 100%;
 	}
 	.rotator-video_item {
 		position: relative;
+		// opacity: 0!important;
 		img {
-			position: absolute;
+			position: relative;
 			top: 50%;
 			left: 50%;
 			height: 100%;
@@ -647,10 +676,14 @@ a {
 	.rotator-video_text {
 		position: absolute;
 		@include x-rem(bottom, 150px);
-		z-index: 5;
+		// z-index: 5;
 		right: 20px;
 		left: 20px;
 		@include x-rem(right, 20px);
+		.slick-wrapper {
+			width: 100%;
+			height: 100%;
+		}
 		.rotator-text {
 			span {
 				display: block;
@@ -663,10 +696,16 @@ a {
 		}
 	}
 }
-@media screen and (orientation: landscape) and (max-width: 1024px) {
+@media screen and (orientation: landscape) and (max-width: 980px) {
 	.content-index .rotator-video_item img {
 		height: auto;
 		max-width: 100%;
+	}
+}
+@media screen and (orientation: landscape) and (max-width: 670px) {
+	.content-index .rotator-video_item img {
+		height: 100%;
+		max-width: none;
 	}
 }
 .head {
@@ -724,6 +763,9 @@ a {
 		@include x-rem(letter-spacing, 5px);
 		display: block;
 		@include x-rem(padding, 10px 0);
+		span {
+			box-shadow: inset 0 -10px 0 $yellow
+		}		
 	}
 }
 .gallery-image {
@@ -877,6 +919,7 @@ a {
 				font-family: $GaramondPro;
 				@include x-rem(font-size, 16px);
 				color: $white;
+				padding-right: 7px;
 			}
 		}
 		.slick-slide {
@@ -931,36 +974,43 @@ a {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background-color: $bordeaux;
+	background-color: $beige;
 	display: none;
 	.cap-inner {
-		width: 260px;
+		@include x-rem(width, 230px);
 		position: absolute;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
 		text-align: center;
+		.image {
+			background-image: url(../img/icons/desktop.png);
+			@include x-rem(width, 98px);
+			@include x-rem(height, 81px);
+			display: inline-block;
+			background-size: cover;
+			@include x-rem(margin-bottom, 30px);
+		}
+		p {
+			font-family: $GaramondProItalic;
+			color: $bordeaux;
+			@include x-rem(font-size, 28px);
+			@include x-rem(margin-bottom, 50px);
+		}
 		a {
 			line-height: 19px;
-			font-size: 13px;
-			font-family: $Baron;
-			text-transform: lowercase;
-			color: $white;			
-			padding-top: 100px;
+			@include x-rem(font-size, 16px);
+			font-family: $GaramondProBoldItalic;
+			color: $white;
 			position: relative;
-			&::after {
-				content: '';
-				position: absolute;
-				top: 0;
-				left: 50%;
-				background-image: url(../img/svg/imac.svg);
-				width: 111px;
-				height: 87px;
-				transform: translate(-12%);
-			}
+			background-color: $orange;
+			padding: 8px 25px;
+			border-radius: 20px;
+			letter-spacing: 1.3px;
 		}
 	}
 }
+
 @media screen and (min-width: 1024px) {
 	body {
 		overflow: hidden;
@@ -1039,7 +1089,7 @@ a {
 			text-align: left;
 			@include x-rem(margin-bottom, 30px)
 			.logo {
-				background-image: url(../img/icons/logo.png);
+				background-image: url(../img/icons/logo-popup.png);
 				@include x-rem(height, 21px);
 				@include x-rem(width, 160px);
 				display: block;

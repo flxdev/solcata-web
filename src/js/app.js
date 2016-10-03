@@ -2,6 +2,64 @@ $(window).load(function(){
 	$('body').removeClass('page-is-changing');
 });
 
+var md = new MobileDetect(window.navigator.userAgent);
+function dTablet() {	
+	if(md.tablet() && $("html").hasClass("portrait")) {
+		deleteCookie("tablet")
+		setCookie("tablet", "P", {
+			expires: 0,
+			path: "/",
+			// domain: ".flex.by"
+		})
+	} else {
+		deleteCookie("tablet")
+		setCookie("tablet", "L", {
+			expires: 0,
+			path: "/",
+			// domain: ".flex.by"
+		})
+	}
+} dTablet();
+
+$(window).on("resize", function(){
+	dTablet()
+});
+
+function setCookie(name, value, options) {
+  options = options || {};
+
+  var expires = options.expires;
+
+  if (typeof expires == "number" && expires) {
+    var d = new Date();
+    d.setTime(d.getTime() + expires * 1000);
+    expires = options.expires = d;
+  }
+  if (expires && expires.toUTCString) {
+    options.expires = expires.toUTCString();
+  }
+
+  value = encodeURIComponent(value);
+
+  var updatedCookie = name + "=" + value;
+
+  for (var propName in options) {
+    updatedCookie += "; " + propName;
+    var propValue = options[propName];
+    if (propValue !== true) {
+      updatedCookie += "=" + propValue;
+    }
+  }
+
+  document.cookie = updatedCookie;
+};
+
+function deleteCookie(name) {
+  setCookie(name, "", {
+    expires: -1
+  })
+}
+
 function Menu(){
 	var trigger = $('.navigation__trigger'),
 		area = $('.navigation-area'),
@@ -9,9 +67,9 @@ function Menu(){
 		view = $('.viewport'),
 		body = $('body'),
 		tl = new TimelineLite();
-	tl
-			.set(area, {autoAlpha: 0, visibility: 'hidden'})
-			.set(content, {width: '0'})
+	// tl
+	// 		.set(area, {autoAlpha: 0, visibility: 'hidden'})
+	// 		.set(content, {width: '0%'})
 	trigger.on('click', function(){
 		var _ = $(this);
 		if(!_.hasClass('open')) {
@@ -19,14 +77,16 @@ function Menu(){
 			view.addClass('return');
 			tl
 				.set(_, {className: '+=open'})
-				.to(area, 0.2, {autoAlpha: 1, ease:Power0.easeNone})
-				.to(content, 0.2, {width: '88%', ease:Power0.easeNone}, 0)
+				.set(area,{className: "+=visible"})
+				// .to(area, 0.2, {autoAlpha: 1, ease:Power3.easeInOut})
+				// .to(content, 0.2, {width: '88%', ease:Power3.easeInOut}, 0)
 		} else {
 			view.removeClass('return');
 			tl
 				.set(_, {className: '-=open'})
-				.to(content, 0.2, {width: '0', ease:Power0.easeNone}, 0)
-				.to(area, 0.2, {autoAlpha: 0, delay: 0.1, ease:Power0.easeNone})
+				.set(area,{className: "-=visible"})
+				// .to(content, 0.2, {width: '0%', ease:Power3.easeInOut}, 0)
+				// .to(area, 0.2, {autoAlpha: 0, delay: 0.1, ease:Power3.easeInOut})
 		}
 
 			
@@ -34,8 +94,9 @@ function Menu(){
 	area.on('click', function(){
 		tl
 			.set(trigger, {className: '-=open'})
-			.to(content, 0.2, {width: '0', ease:Power0.easeNone}, 0)
-			.to(area, 0.2, {autoAlpha: 0, delay: 0.1, ease:Power0.easeNone})
+			.set(area,{className: "-=visible"})
+			// .to(content, 0.2, {width: '0', ease:Power3.easeInOut}, 0)
+			// .to(area, 0.2, {autoAlpha: 0, delay: 0.1, ease:Power3.easeInOut})
 		view.removeClass('return');
 	});
 	content.on('click', function(event){
@@ -86,9 +147,10 @@ function menuNumbers(){
 
 		tl
 			.set(trigger, {className: '-=open'})
+			.set(area,{className: "-=visible"})
 
-			.to(content, 0.2, {width: '0', ease:Power3.easeInOut})
-			.to(area, 0.2, {autoAlpha: 0, ease:Power3.easeInOut})
+			// .to(content, 0.2, {width: '0', ease:Power3.easeInOut})
+			// .to(area, 0.2, {autoAlpha: 0, ease:Power3.easeInOut})
 			
 		event.preventDefault();
 
@@ -103,14 +165,12 @@ function rotators() {
 
 
 	var videoSettings = {
-		// autoplay: 7000,
+		// autoplay: 3000,
 		speed: 1200,
 		loop: true,
 		noSwiping: false,
 		runCallbacksOnInit: false,
 		effect: 'fade',
-		longSwipesMs: 10,
-		longSwipesRatio: 0.1,
 		onInit: function(swiper) {
 
 			// setTimeout(function(){
@@ -126,11 +186,9 @@ function rotators() {
 		}
 	};
 	var textSettings = {
-		speed: 1200,
+		// speed: 1200,
 		loop: true,
-		parallax: true,
-		longSwipesMs: 10,
-		longSwipesRatio: 0.1,
+		// parallax: true,
 		// effect: 'coverflow',
 		// flip: {
 		// 	slideShadows: false
@@ -158,7 +216,7 @@ function rotators() {
 			swiperVideo = new Swiper(rVideo, videoSettings);
 			swiperText = new Swiper(rText, textSettings);
 
-			swiperVideo.params.control = swiperText;
+			// swiperVideo.params.control = swiperText;
 			swiperText.params.control = swiperVideo;
 
 		},10)
@@ -192,6 +250,43 @@ function rotators() {
 		}	
 		$('.pagination').append('<div class="shadow"></div>')
 	};
+}
+
+function slickRotator() {
+	var slickRotator = $('.rotator'),
+		rImage = slickRotator.find('.rotator_video .slick-wrapper'),
+		rText = slickRotator.find('.rotator-video_text .slick-wrapper');
+
+	var imageSet = {
+		fade: true,
+		arrows: false,
+		asNavFor: rText,
+		autoplay: true,
+		speed: 1200,
+		autoplaySpeed: 3000
+	}
+
+	var textSet = {
+		arrows: false,
+		asNavFor: rImage,
+		speed: 1200,
+		autoplaySpeed: 3000
+	}
+
+	rImage.on("init", function(){
+		autoHeight();
+	})
+
+	rImage.slick(imageSet);
+	rText.slick(textSet);
+
+	function autoHeight() {
+		$(".rotator-video_item").height($("#container-load").height());
+	}
+	window.onresize = function() {
+		autoHeight();
+	}
+
 }
 
 
@@ -296,7 +391,7 @@ function cycleRotator() {
 			{
 				breakpoint: 376,
 				settings: {
-					slidesToShow: 2
+					slidesToShow: 3
 				}
 			},
 			{
@@ -470,6 +565,13 @@ function validator() {
 
 				},
 				onSuccess: function($form){
+					$.ajax({
+						url:'',
+						type:'post',
+						dataType:'html',
+						data:$form.serialize()
+					})
+
 					$(".popup__body").addClass("hide");
 					setTimeout(function(){
 						$(".popup__success").addClass("show");
@@ -604,7 +706,7 @@ $(document).ready(function () {
 		 		vp = $(".viewport-section"),
 		 		wh = $(window).height();
 
-		 		if(wh <= 320) {
+		 		if(wh <= 414) {
 		 			cIndex.css('min-height', 480);
 		 			vp.css('min-height', 480);
 		 		} else {

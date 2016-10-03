@@ -8,5 +8,6 @@
 //= lib/CSSPlugin.min.js
 //= lib/hammer.2.0.4.js
 //= lib/jquery.form-validator.min.js
+//= lib/mobile-detect.min.js
 
 //= app.js
