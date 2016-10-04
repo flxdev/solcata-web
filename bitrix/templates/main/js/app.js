@@ -11,6 +11,7 @@ function dTablet() {
 			path: "/",
 			// domain: ".flex.by"
 		})
+		$("html").addClass("tablet");
 	} else {
 		deleteCookie("tablet")
 		setCookie("tablet", "L", {
@@ -18,11 +19,15 @@ function dTablet() {
 			path: "/",
 			// domain: ".flex.by"
 		})
+		$("html").removeClass("tablet");
 	}
 } dTablet();
 
 $(window).on("resize", function(){
-	dTablet()
+	setTimeout(function(){
+		dTablet()
+	},100)
+	
 });
 
 function setCookie(name, value, options) {
@@ -222,6 +227,7 @@ function rotators() {
 		},10)
 		$(window).on('resize', function(){
 			swiperVideo.onResize();
+			createShadow();
 		});
 	}
 
@@ -234,6 +240,7 @@ function rotators() {
 		},10)
 		$(window).on('resize', function(){
 			swiperVideo.onResize();
+			createShadow();
 		});
 	}
 
@@ -243,6 +250,16 @@ function rotators() {
 				$('.pagination').find('.shadow').css('left', left + 6);
 			}
 		};
+
+	var time;
+		$(window).on("resize", function(){
+			clearTimeout(time);
+			time = setTimeout(function(){
+				createShadow()
+				bulletsShadow()
+			}, 10);
+			
+		});
 
 	function createShadow() {
 		if($('.rotator .swiper-pagination-bullet').length === 1) {
