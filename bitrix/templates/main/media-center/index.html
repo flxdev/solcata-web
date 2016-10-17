@@ -16,8 +16,8 @@
 </head>
 <body>
 <div class="viewport" id="viewport">
-	<div class="viewport-section" id="load-content">
-		<div class="container" id="container-load">
+	<div class="viewport-inner">
+		<div class="scroll">
 			<header class="header">
 				<a href="/" class="logo ajaxtrigger"></a>
 				<div class="navigation">
@@ -30,64 +30,71 @@
 					</div>
 				</div>
 			</header>
-			<div class="content">
-				<div class="view" id="view">
-					<div class="wrap">
-						<div class="head">
-							<div class="h1">media centre</div>
-						</div>
-						<div class="content-section">
-							<div class="img-cover">
-								<img src="../img/content.jpg" alt="">
+			<div class="viewport-section" id="load-content">
+				<div class="container" id="container-load">
+					<div class="content">
+						<div class="view" id="view">
+							<div class="wrap">
+								<div class="head">
+									<div class="h1">media centre</div>
+								</div>
+								<div class="content-section">
+									<div class="img-cover">
+										<img src="../../img/content.jpg" alt="">
+									</div>
+									<div class="navigation-panel">
+										<a href="/media-center/news/" class="navigation-panel_item ajaxtrigger">world News</a>
+										<a href="/media-center/careers/" class="navigation-panel_item ajaxtrigger">Careers</a>
+									</div>
+								</div>
 							</div>
-							<div class="navigation-panel">
-								<a href="/media-center/news/" class="navigation-panel_item ajaxtrigger">world News</a>
-								<a href="/media-center/careers/" class="navigation-panel_item ajaxtrigger">Careers</a>
-								<a href="/media-center/faq/" class="navigation-panel_item ajaxtrigger">faq</a>
-							</div>
+							<footer class="footer">
+								<div class="requisites">
+									<div class="requisites-inner">
+										<p><strong>Solcata SA</strong> Rue Agasse 54, 1208 Geneva, Switzerland</p>
+										<p>+41 76 5838056, <a href="mailto:info@solcata.com">info@solcata.com</a></p>
+									</div>
+								</div>
+								<div class="language">
+									<a href="" class="language-item active">En</a><span>—</span><a href="" class="language-item">Fr</a>
+								</div>
+								<div class="developers">
+									<div class="developers-inner">
+										<a href="">Made in <span>Flexmedia</span></a>
+									</div>
+								</div>
+							</footer>
 						</div>
 					</div>
-					<footer class="footer">
-						<div class="requisites">
-							<div class="requisites-inner">
-								<p><strong>Solcata SA</strong> Rue Agasse 54, 1208 Geneva, Switzerland</p>
-								<p>+41 76 5838056, <a href="mailto:info@solcata.com">info@solcata.com</a></p>
-							</div>
-						</div>
-						<div class="language">
-							<a href="" class="language-item active">En</a><span>—</span><a href="" class="language-item">Fr</a>
-						</div>
-						<div class="developers">
-							<div class="developers-inner">
-								<a href="">Made in <span>Flexmedia</span></a>
-							</div>
-						</div>
-					</footer>
+				</div>
+				<div class="pageloader" id="pageloader">
+					<a href="/contacts/" id="link-page" class="ajaxtrigger">
+						<span>push to contact us</span>
+					</a>
 				</div>
 			</div>
-		</div>
-		<div class="pageloader" id="pageloader">
-			<a href="/media-center/" id="link-page" class="ajaxtrigger">
-				<span>pull up to media center</span>
-			</a>
+			<nav class="navigation-area" id="index-nav">
+				<div class="navigation-content">
+					<div class="navigation-layer">
+						<div class="navigation-numbers"></div>
+						<div class="navigation-list">
+							<a href="/" class="navigation-items ajaxtrigger"><span>Home</span></a>
+							<a href="/company/" class="navigation-items ajaxtrigger"><span>Company</span></a>
+							<a href="/products/" class="navigation-items ajaxtrigger"><span>Products</span></a>
+							<a href="/logistics/" class="navigation-items ajaxtrigger"><span>Logistics</span></a>
+							<a href="/media-center/" class="navigation-items ajaxtrigger active"><span>Media center</span></a>
+							<a href="/contacts/" class="navigation-items ajaxtrigger"><span>Contact us</span></a>
+						</div>
+					</div>
+				</div>
+			</nav>
 		</div>
 	</div>
-	<nav class="navigation-area" id="index-nav">
-		<div class="navigation-content">
-			<div class="navigation-layer">
-				<div class="navigation-numbers"></div>
-				<div class="navigation-list">
-					<a href="/" class="navigation-items ajaxtrigger"><span>Home</span></a>
-					<a href="/company/" class="navigation-items ajaxtrigger"><span>Company</span></a>
-					<a href="/products/" class="navigation-items ajaxtrigger"><span>Products</span></a>
-					<a href="/logistics/" class="navigation-items ajaxtrigger"><span>Logistics</span></a>
-					<a href="/media-center/" class="navigation-items ajaxtrigger active"><span>Media center</span></a>
-					<a href="/contacts/" class="navigation-items ajaxtrigger"><span>Contact us</span></a>
-				</div>
-			</div>
-		</div>
-	</nav>
 </div>
-<div class="loader-bar"></div>
+<div class="loader-bar">
+	<span></span>
+	<span></span>
+	<span></span>
+</div>
 </body>
 </html>
