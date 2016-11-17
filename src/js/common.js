@@ -9,5 +9,8 @@
 //= lib/hammer.2.0.4.js
 //= lib/jquery.form-validator.min.js
 //= lib/mobile-detect.min.js
+//= lib/iscroll.js
+//= lib/transitions.js
+
 
 //= app.js

@@ -18,7 +18,7 @@
 </head>
 <body class="page-is-changing">
 <div class="viewport" id="viewport">
-	<div class="viewport-inner">
+	<div class="viewport-inner" id="out">
 		<div class="scroll">
 			<header class="header">
 				<a href="/" class="logo ajaxtrigger"></a>
@@ -35,54 +35,49 @@
 			<div class="viewport-section" id="load-content">
 				<div class="container" id="container-load">
 					<div class="content content-index">
-						<div class="container__rotator">
-							<div class="rotator">
-								<div class="rotator_video">
-									<div class="swiper-container">
-										<div class="swiper-wrapper">
-											<div class="rotator-video_item swiper-slide">
-												<img src="/img/desktop.jpg" alt="">
-											</div>
-											<div class="rotator-video_item swiper-slide">
-												<img src="/img/desktop.jpg" alt="">
-											</div>
-											<div class="rotator-video_item swiper-slide">
-												<img src="/img/desktop.jpg" alt="">
-											</div>
-										</div>
+						<div class="kontext-rotator">
+							<div class="kontext">
+								<div class="layer">
+									<div class="image-cover">
+										<img src="../img/desktop.jpg" alt="">
+									</div>
+									<div class="text-container">
+										<span>We provide</span>
+										<span>commodities</span>
+										<span>to the world</span>
 									</div>
 								</div>
-								<div class="rotator-video_text">
-									<div class="swiper-container">
-										<div class="swiper-wrapper">
-											<div class="rotator-text_item swiper-slide">
-												<div class="rotator-text">
-													<span data-swiper-parallax="-100">We provide</span>
-													<span data-swiper-parallax="-300">commodities</span>
-													<span data-swiper-parallax="-500">to the world</span>
-												</div>
-											</div>
-											<div class="rotator-text_item swiper-slide">
-												<div class="rotator-text">
-													<span data-swiper-parallax="-100">We provide</span>
-													<span data-swiper-parallax="-300">oil & petroleum</span>
-													<span data-swiper-parallax="-500">to the world</span>
-												</div>
-											</div>
-											<div class="rotator-text_item swiper-slide">
-												<div class="rotator-text">
-													<span data-swiper-parallax="-100">We provide</span>
-													<span data-swiper-parallax="-300">iron ore</span>
-													<span data-swiper-parallax="-500">to the world</span>
-												</div>
-											</div>
-										</div>
+								<div class="layer">
+									<div class="image-cover">
+										<img src="../img/content.jpg" alt="">
+									</div>
+									<div class="text-container">
+										<span>We provide</span>
+										<span>oil & petroleum</span>
+										<span>to the world</span>
+									</div>
+								</div>
+								<div class="layer">
+									<div class="image-cover">
+										<img src="../img/careers/careers.jpg" alt="">
+									</div>
+									<div class="text-container">
+										<span>We provide</span>
+										<span>iron ore</span>
+										<span>to the world</span>
 									</div>
 								</div>
 							</div>
+							<div class="bulets-container">
+								<ul class="bullets"></ul>
+								<div class="bullets-shadow"></div>
+							</div>								
 							<script>
 								$(function(){
-									rotators();
+									setTimeout(function(){
+										mainRotators();
+									},200)
+									
 								});
 							</script>
 						</div>
@@ -105,13 +100,15 @@
 					</div>
 				</div>
 				<div class="pageloader" id="pageloader">
-					<a href="/company/" id="link-page" class="ajaxtrigger">
-						<span>push to company</span>
-					</a>
+					<div data-href="/company/" id="link-page">
+						<span>pull up to company</span>
+					</div>
 				</div>
 			</div>
 		</div>
-		<nav class="navigation-area" id="index-nav">
+	</div>
+	<nav class="navigation-area" id="index-nav">
+		<div class="navigation-scroll">
 			<div class="navigation-content">
 				<div class="navigation-layer">
 					<div class="navigation-numbers"></div>
@@ -125,8 +122,8 @@
 					</div>
 				</div>
 			</div>
-		</nav>
-	</div>
+		</div>
+	</nav>
 </div>
 <div class="loader-bar">
 	<span></span>
@@ -139,6 +136,12 @@
 		<p>Please, switch to&nbsp;the&nbsp;desktop version</p>
 		<a href="">Switch</a>
 	</div>
+</div>
+<div class="pan-loader" id="pan-loader">
+	<span class="container-rotate" id="rotate">
+		<svg width="20" height="20">
+			<circle class="outer" cx="10" cy="10" r="8" stroke-dashoffset="50" fill="transparent" stroke="#ffffff" stroke-width="3" stroke-dasharray="50" stroke-dashoffset="0" /></svg>
+	</span>
 </div>
 </body>
 </html>

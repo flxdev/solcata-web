@@ -6,7 +6,7 @@
 </head>
 <body>
 <div class="viewport" id="viewport">
-	<div class="viewport-inner">
+	<div class="viewport-inner" id="out">
 		<div class="scroll">
 			<header class="header">
 				<a href="/" class="logo ajaxtrigger"></a>
@@ -45,78 +45,82 @@
 					</div>
 				</div>
 				<div class="pageloader" id="pageloader">
-					<a href="/" id="link-page" class="ajaxtrigger">
-						<span>push to home</span>
-					</a>
-				</div>
-			</div>
-			<nav class="navigation-area" id="index-nav">
-				<div class="navigation-content">
-					<div class="navigation-layer">
-						<div class="navigation-numbers"></div>
-						<div class="navigation-list">
-							<a href="/" class="navigation-items ajaxtrigger"><span>Home</span></a>
-							<a href="/company/" class="navigation-items ajaxtrigger"><span>Company</span></a>
-							<a href="/products/" class="navigation-items ajaxtrigger"><span>Products</span></a>
-							<a href="/logistics/" class="navigation-items ajaxtrigger"><span>Logistics</span></a>
-							<a href="/contacts/" class="navigation-items ajaxtrigger active"><span>Contact us</span></a>
-						</div>
+					<div data-href="/" id="link-page">
+						<span>pull up to home</span>
 					</div>
-				</div>
-			</nav>
-		</div>
-		<div class="popup__wrapper" data-wrapper-popup="callback">
-			<div class="popup">
-				<div class="popup__head">
-					<div class="logo ajaxtrigger"></div>
-					<div class="close close__popup">
-						<div>
-							<span></span>
-							<span></span>
-						</div>
-					</div>
-				</div>
-				<div class="popup__body">
-					<div class="popup__title">contact form</div>
-					<div class="form">
-						<form action="" class="js-validate">
-							<div class="field">
-								<div class="field__head">Your name</div>
-								<div class="field__body">
-									<input type="text" data-validation="length" data-validation-length="min1">
-								</div>
-							</div>
-							<div class="field">
-								<div class="field__head">Your e-mail / phone number</div>
-								<div class="field__body">
-									<input type="text" data-validation="length" data-validation-length="min1">
-								</div>
-							</div>
-							<div class="field">
-								<div class="field__head">Your message</div>
-								<div class="field__body">
-									<input type="text" data-validation="length" data-validation-length="min1">
-								</div>
-							</div>
-							<div class="field">
-								<button class="link" type="submit">
-									<span>Send us a message</span>
-								</button>
-							</div>
-						</form>
-					</div>
-				</div>
-				<div class="popup__success">
-					<div class="text">Thank you! In the near future we will call you back.</div>
 				</div>
 			</div>
 		</div>
-		<script>
-			$(function(){
-				validator();
-			});
-		</script>
 	</div>
+	<nav class="navigation-area" id="index-nav">
+		<div class="navigation-scroll">
+			<div class="navigation-content">
+				<div class="navigation-layer">
+					<div class="navigation-numbers"></div>
+					<div class="navigation-list">
+						<a href="/" class="navigation-items ajaxtrigger"><span>Home</span></a>
+						<a href="/company/" class="navigation-items ajaxtrigger"><span>Company</span></a>
+						<a href="/products/" class="navigation-items ajaxtrigger"><span>Products</span></a>
+						<a href="/logistics/" class="navigation-items ajaxtrigger"><span>Logistics</span></a>
+						<a href="/contacts/" class="navigation-items ajaxtrigger active"><span>Contact us</span></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<div class="popup__wrapper" data-wrapper-popup="callback">
+		<div class="popup">
+			<div class="popup__head">
+				<div class="logo ajaxtrigger"></div>
+				<div class="close close__popup">
+					<div>
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+			</div>
+			<div class="popup__body">
+				<div class="popup__title">contact form</div>
+				<div class="form">
+					<form action="" class="js-validate">
+						<div class="field">
+							<div class="field__head">Your name</div>
+							<div class="field__body">
+								<input type="text" data-validation="length" data-validation-length="min1">
+							</div>
+						</div>
+						<div class="field">
+							<div class="field__head">Your e-mail / phone number</div>
+							<div class="field__body">
+								<input type="text" data-validation="length" data-validation-length="min1">
+							</div>
+						</div>
+						<div class="field">
+							<div class="field__head">Your message</div>
+							<div class="field__body">
+								<input type="text" data-validation="length" data-validation-length="min1">
+							</div>
+						</div>
+						<div class="field">
+							<button class="link" type="submit">
+								<span>Send us a message</span>
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="popup__success">
+				<div class="text">Thank you! In the near future we will call you back.</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(function(){
+			validator();
+			var scrollModal = ".popup__wrapper";
+			scrollModalInit = new customScroll(scrollModal);
+		});
+	</script>
 </div>
 <div class="loader-bar">
 	<span></span>
@@ -125,6 +129,12 @@
 </div>
 <div class="cap">
 	<div class="cap-inner"><a href="">Открыть версию для десктопных устройств</a></div>
+</div>
+<div class="pan-loader" id="pan-loader">
+	<span class="container-rotate" id="rotate">
+		<svg width="20" height="20">
+			<circle class="outer" cx="10" cy="10" r="8" stroke-dashoffset="50" fill="transparent" stroke="#ffffff" stroke-width="3" stroke-dasharray="50" stroke-dashoffset="0" /></svg>
+	</span>
 </div>
 </body>
 </html>

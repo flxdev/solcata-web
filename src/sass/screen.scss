@@ -26,21 +26,19 @@ body {
 	text-rendering: optimizeLegibility;
 	font-kerning: normal;
 	height: 100%;
-	background-color: $bordeaux;
+	background-color: $beige;
 	position: relative;
 	width: 100%;
 	overflow: hidden;
 
-	.container, .navigation-area {
+	.viewport {
 		opacity: 1;
-		transition: opacity 0.3s ease, visibility 0.3s ease;
+		transition: opacity 0.3s ease;
 	}
 	&.page-is-changing {
-		.container, .navigation-area {
+		.viewport {
 			opacity: 0;
-		}
-		.header, .pageloader {
-			opacity: 0;
+
 		}
 		.loader-bar {
 			opacity: 1;
@@ -216,24 +214,32 @@ a {
 	text-decoration: none;
 }
 .viewport {
-	position: absolute;
-	height: 100%;
-	overflow: hidden;	
+	position: relative;
 	min-width: 320px;
 	width: 100%;
-	background-color: $beige;
 	opacity: 1;
 	transition: opacity 0.3s ease;
-	.logistics {
+	height: 100%;
+	&::after {
+		content: '';
+		width: 100%;
+		height: 1500px;
+		background-color: $bordeaux;
+		position: absolute;
+		top: 100%;
+		left: 0;
+	}
+	&.logistics {
 		background-color: $orange;
+		&::after {
+			background-color: $orange;
+		}
 	}
 	.viewport-inner {
 		overflow: hidden;
-		position: absolute;
+		position: relative;
 		width: 100%;
-		height: 100%;
-		top: 0;
-		left: 0;
+		min-height: 100%;
 		-webkit-overflow-scrolling: touch;
 	}
 	&.return {
@@ -244,11 +250,8 @@ a {
 }
 /*----mobile----*/
 .scroll {
-	overflow-y: auto;
-	overflow-x: hidden;
-	width: 100%;
-	height: 100%;
-	position: absolute;
+	// overflow-y: auto;
+	// overflow-x: hidden;
 	
 }
 	
@@ -298,7 +301,7 @@ a {
 	right: 0;
 	z-index: 2;
 	transition: opacity 0.3s ease;
-	a {
+	div {
 		font-family: $Baron;
 		@include x-rem(letter-spacing, 1.9px);
 		color: $white;
@@ -325,6 +328,7 @@ a {
 	right: 20px;
 	top: 0;
 	opacity: 1;
+	z-index: 5;
 	.logo {
 		@include x-rem(width, 160px);
 		@include x-rem(height, 21px);
@@ -399,10 +403,10 @@ a {
 .viewport {
 	&.return {
 		.navigation {
-			position: absolute;
+			position: fixed;
 			z-index: 155;
 			@include x-rem(top, 20px);
-			@include x-rem(right, 0px);
+			@include x-rem(right, 20px);
 		}
 	}
 }
@@ -417,13 +421,18 @@ a {
 	opacity: 0!important;
 	visibility: hidden;
 	transition: opacity 0.2s $bizer 0.2s, visibility 0.2s $bizer 0.2s!important;
+	.navigation-scroll {
+		width: 100%;
+		overflow: hidden;
+	}
 	.navigation-content {
 		background-color: $beige;
 		width: 88%;
-		height: 100%;
-		position: absolute;
+		float: right;
+		position: relative;
 		top: 0;
 		right: 0;
+		min-height: 100vh;
 		z-index: 110;
 		transition: transform 0.2s $bizer;
 		overflow-y: auto;
@@ -949,7 +958,7 @@ a {
 	}
 }
 .maps {
-	@include x-rem(height, 210px);
+	@include x-rem(height, 310px);
 	width: 100%;
 	@include x-rem(margin-bottom, 25px);
 	.gm-style-cc {
@@ -1093,14 +1102,14 @@ a {
 	left: 0;
 	width: 100%;
 	height: 100%;
+	-webkit-overflow-scrolling: touch;
 	background-color: $orange;
 	z-index: 110;
-	overflow-y: auto;
+	overflow: hidden;
 	display: inline-block;
 	text-align: center;
 	font-size: 0;
 	display: none;
-	-webkit-overflow-scrolling: touch;
 	.popup {
 		position: relative;
 		@include x-rem(padding, 20px);
@@ -1377,5 +1386,192 @@ a {
 	.load-news {
 		opacity: 1;
 		visibility: visible;
+	}
+}
+.pan-loader {
+	position: absolute;
+	left: 0;
+	right: 0;
+	@include x-rem(height, 63px);
+	@include x-rem(bottom, -63px);
+	.container-rotate {
+		position: absolute;
+		top: 0;
+		left: 50%;
+		width: 20px;
+		height: 20px;
+		margin: 0 0 0 -10px;
+		display: inline-block;
+		-webkit-transform-origin: 50% 50%;
+		-ms-transform-origin: 50% 50%;
+		transform-origin: 50% 50%;
+	}
+}
+.loading {
+	.viewport, .pan-loader {
+		transform: translateY(-3.9375em);
+		transition: transform .3s ease;
+	}
+	.container-rotate {
+		animation: f .5s linear infinite
+	}
+	.outer {
+		animation: e .5s cubic-bezier(.645,.045,.355,1) both
+	}
+}
+.page-is-changing {
+	.pan-loader {
+		opacity: 0;
+	}
+}
+@keyframes e {
+	0% {
+		stroke-dashoffset: 0
+	}
+	to {
+		stroke-dashoffset: 10
+	}
+}
+@keyframes f {
+	0% {
+		transform: rotate(0);
+	}
+	to {
+		transform: rotate(1turn)
+	}
+}
+.kontext-rotator {
+	.kontext {
+		width: 100%;
+		height: 100%;
+		position: relative;
+		&.animate {
+			.layer {
+				&.show {
+					&.right {
+						animation: show-right 1s forwards ease;
+					}
+					&.left {
+						animation: show-left 1s forwards ease;
+					}
+				}
+				&.hide {
+					animation: hide 1s forwards ease;
+				}
+			}
+		}
+		.layer {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			z-index: 1;
+			opacity: 0;
+			will-change: transform;
+			transition: opacity 1s ease;
+			&.show {
+				z-index: 2;
+			}
+			&.active {
+				opacity: 1;
+				transition-duration: 0s;
+			}
+			.image-cover {
+				width: 100%;
+				height: 100%;
+				img {
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+				}
+			}
+			.text-container {
+				position: absolute;
+				@include x-rem(bottom, 180px);
+				@include x-rem(left, 20px);
+				@include x-rem(right, 20px);
+				span {
+					display: block;
+					font-family: $BaronBlack;
+					@include x-rem(font-size, 24px);
+					color: $bordeaux;
+					letter-spacing: 4px;
+					@include x-rem(padding, 5px 0);
+				}
+			}
+		}
+		.capable {
+			perspective: 1000px;
+			transform-style: preserve-3d;
+		}
+	}
+	width: 100%;
+	height: 100%;
+	.bulets-container {	
+		position: absolute;
+		@include x-rem(bottom, 150px);
+		@include x-rem(left, 20px);
+		z-index: 3;
+		.bullets {
+			position: relative;
+			li {
+				display: inline-block;
+				@include x-rem(width, 18px);
+				@include x-rem(height, 18px);
+				@include x-rem(margin, 0 6px);
+				position: relative;
+				&::after {
+					content: '';
+					@include x-rem(width, 6px);
+					@include x-rem(height, 6px);
+					@include x-rem(margin, -3px 0 0 -3px);
+					display: block;
+					background-color: $bordeaux;
+					position: absolute;
+					left: 50%;
+					top: 50%;
+					border-radius: 100%;
+				}
+				&.active {
+					&::after {
+						background-color: $white;
+					}
+				}
+			}
+		}
+		.bullets-shadow {
+			display: block;
+			@include x-rem(width, 18px);
+			@include x-rem(height, 18px);
+			position: absolute;
+			top: 0;
+			background-color: $bordeaux;
+			border-radius: 100%;
+			z-index: -1;
+			@include x-rem(left, 6px);
+			transition: left 0.3s ease;
+		}
+	}
+}
+	
+
+@keyframes show-right {
+	0%   { transform: translate( 100%, 0 ); }
+	100% { transform: translateZ( 0px ); }
+}
+@keyframes show-left {
+	0%   { transform: translate( -100%, 0 ); }
+	100% { transform: translateZ( 0px ); }
+}
+@-webkit-keyframes hide {
+	0%   {  
+		opacity: 1;
+		transform: scale( 1.0 )
+	}
+
+	100% {
+		opacity: 0.3;
+		transform: scale( 0.95 )
 	}
 }
