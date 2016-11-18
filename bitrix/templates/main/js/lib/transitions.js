@@ -26,6 +26,7 @@ window.kontext = function( _slider, _bullet ) {
 		},
 		timeout: null,
 		autoPlaySpeed: 5000,
+		autoplay: true,
 		capable:	'WebkitPerspective' in document.body.style ||
 					'MozPerspective' in document.body.style ||
 					'msPerspective' in document.body.style ||
@@ -59,6 +60,7 @@ window.kontext = function( _slider, _bullet ) {
 	_this.f.show = function(cur, next, action) {
 		_this.action = true;
 
+		_this.f.autoPlayClear();
 
 		_cur_slide = _this.c.slides[cur];
 		_next_slide = _this.c.slides[next];
@@ -82,6 +84,8 @@ window.kontext = function( _slider, _bullet ) {
 		_this.f.actionBullets(next);
 
 		_this.f.afterAnimate(_next_slide);
+
+
 	}
 
 	_this.f.initEvents = function() {
@@ -119,6 +123,7 @@ window.kontext = function( _slider, _bullet ) {
 	_this.f.afterAnimate = function(element) {
 		$(element).one(_this.conf.animationEvents, function() {
 			_this.action = false;
+			_this.f.autoPlay();
 		})
 	}
 
@@ -132,7 +137,10 @@ window.kontext = function( _slider, _bullet ) {
 			_bul.className = i === 0 ? 'active' : '';
 			_bul.setAttribute( 'index', i );
 			_bul.onclick = function( event ) {
-					var _activeIndex = document.body.querySelectorAll( '.bullets .active' )[0].getAttribute('index'),
+				if(_this.action) {
+					return false;
+				}
+					var _activeIndex = document.body.querySelector( '.bullets .active' ).getAttribute('index'),
 					    _targetIndex = parseInt(event.target.getAttribute( 'index' )),
 					    _targetDeraction = _activeIndex > _targetIndex ? "prev" : "next";
 
@@ -151,11 +159,25 @@ window.kontext = function( _slider, _bullet ) {
 	}
 
 	_this.f.actionShadowBullets = function() {
-		_this.c.bulletsShadow.style.left = document.body.querySelectorAll( '.bullets .active' )[0].offsetLeft + "px";
+		_this.c.bulletsShadow.style.left = document.body.querySelector( '.bullets .active' ).offsetLeft + "px";
 
 		window.onresize = function() {
 			_this.f.actionShadowBullets();
 		}
+	}
+
+	_this.f.autoPlay = function() {
+		_this.conf.timeout = setInterval(function(){
+			_this.f.next()
+		}, _this.conf.autoPlaySpeed);
+	}
+
+	_this.f.autoPlayClear = function() {
+
+		if(_this.conf.timeout) {
+			clearTimeout(_this.conf.timeout)
+		}
+
 	}
 
 	_this.init = function() {
@@ -175,6 +197,10 @@ window.kontext = function( _slider, _bullet ) {
 
 			_this.f.initEvents();
 			_this.f.createBullets();
+
+			if(_this.conf.autoplay) {
+				_this.f.autoPlay();
+			}
 
 		}
 		else {

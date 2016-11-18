@@ -220,27 +220,28 @@ a {
 	opacity: 1;
 	transition: opacity 0.3s ease;
 	height: 100%;
-	&::after {
-		content: '';
-		width: 100%;
-		height: 1500px;
-		background-color: $bordeaux;
-		position: absolute;
-		top: 100%;
-		left: 0;
-	}
 	&.logistics {
 		background-color: $orange;
-		&::after {
-			background-color: $orange;
+		.viewport-inner {
+			&::after {
+				background-color: $orange;
+			}
 		}
 	}
 	.viewport-inner {
-		overflow: hidden;
 		position: relative;
 		width: 100%;
 		min-height: 100%;
 		-webkit-overflow-scrolling: touch;
+		&::after {
+			content: '';
+			width: 100%;
+			height: 1500px;
+			background-color: $bordeaux;
+			position: absolute;
+			top: 100%;
+			left: 0;
+		}
 	}
 	&.return {
 		.scroll {
@@ -301,6 +302,16 @@ a {
 	right: 0;
 	z-index: 2;
 	transition: opacity 0.3s ease;
+	display: block;
+	&::after {
+		content: '';
+		background-color: $bordeaux;
+		height: 10px;
+		width: 100%;
+		bottom: -10px;
+		position: absolute;
+		z-index: 3
+	}
 	div {
 		font-family: $Baron;
 		@include x-rem(letter-spacing, 1.9px);
@@ -382,21 +393,63 @@ a {
 			}
 		}
 		&.open {
-			span {
-				&:nth-child(1) {
-					transform: rotate(135deg);
-					@include x-rem(top, 9px);
-				}
-				&:nth-child(2) {
-					opacity: 0;
-					left: -60px;
-					@include x-rem(left, -60px);
-				}
-				&:nth-child(3) {
-					transform: rotate(-135deg);
-					@include x-rem(top, 9px);
-				}
-			}
+			// span {
+			// 	&:nth-child(1) {
+			// 		transform: rotate(135deg);
+			// 		@include x-rem(top, 9px);
+			// 	}
+			// 	&:nth-child(2) {
+			// 		opacity: 0;
+			// 		left: -60px;
+			// 		@include x-rem(left, -60px);
+			// 	}
+			// 	&:nth-child(3) {
+			// 		transform: rotate(-135deg);
+			// 		@include x-rem(top, 9px);
+			// 	}
+			// }
+		}
+	}
+}
+.navigation-area__trigger {
+	position: relative;
+	@include x-rem(width, 50px);
+	@include x-rem(height, 50px);
+	@include x-rem(padding, 15px 10px);
+	cursor: pointer;
+	text-align: center;
+	float: right;	
+	background-color: $bordeaux;
+	@include x-rem(top, 20px);
+	@include x-rem(right, 20px);
+	div {
+		display: block;
+		position: relative;
+		@include x-rem(width, 30px);
+		@include x-rem(height, 22px);
+	}
+	span {
+		height: 2px;
+		width: 100%;
+		display: block;
+		background-color: $white;
+		position: absolute;
+		opacity: 1;
+		left: 0;
+		transform: rotate(0deg);
+		transition: 0.2s ease-in-out;
+		&:nth-child(1) {
+			transform: rotate(135deg);
+			@include x-rem(top, 9px);
+		}
+		&:nth-child(2) {
+			opacity: 0;
+			left: -60px;
+			@include x-rem(left, -60px);
+		}
+		&:nth-child(3) {
+			transform: rotate(-135deg);
+			@include x-rem(top, 9px);
 		}
 	}
 }
@@ -407,6 +460,13 @@ a {
 			z-index: 155;
 			@include x-rem(top, 20px);
 			@include x-rem(right, 20px);
+		}
+		.navigation-area {
+			.navigation {
+				position: relative;
+				top: auto;
+				left: auto;
+			}
 		}
 	}
 }

@@ -71,6 +71,7 @@ function Menu(){
 		content = $('.navigation-content'),
 		view = $('.viewport'),
 		body = $('body'),
+		close = area.find(".navigation-area__trigger"),
 		tl = new TimelineLite(), posY;
 	// tl
 	// 		.set(area, {autoAlpha: 0, visibility: 'hidden'})
@@ -100,7 +101,7 @@ function Menu(){
 
 			
 	});
-	area.on('click', function(){
+	area.add(close).on('click', function(){
 		tl
 			.set(trigger, {className: '-=open'})
 			.set(area,{className: "-=visible"})
@@ -288,7 +289,6 @@ function rotators() {
 }
 
 function mainRotators() {
-	// Create a new instance of kontext
 		var cont = document.querySelector( '.kontext' ),
 			bullet = document.querySelector( '.bullets' );
 			var k = new kontext( cont , bullet);
