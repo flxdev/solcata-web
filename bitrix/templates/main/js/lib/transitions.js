@@ -20,9 +20,9 @@ window.kontext = function( _slider, _bullet ) {
 		classes: {
 			next: 'right',
 			prev: 'left',
-			hide: 'hide',
-			active: 'active',
-			show: 'show'
+			hideClass: 'hide',
+			activeClass: 'active',
+			showClass: 'show'
 		},
 		timeout: null,
 		autoPlaySpeed: 5000,
@@ -66,17 +66,20 @@ window.kontext = function( _slider, _bullet ) {
 		_next_slide = _this.c.slides[next];
 
 		_this.c.slides.forEach(function(slide, i) {
-			Object.values(_this.conf.classes).map(function(class_name) {
-				if(_this.conf.classes[action] != class_name) {
-					slide.classList.remove(class_name);
+
+			_this.classesKey = _this.conf.classes;
+
+			for (var objKey in _this.conf.classes) {
+				if(_this.conf.classes[action] != _this.conf.classes[objKey]) {
+					slide.classList.remove(_this.conf.classes[objKey]);
 				}
-			});
-			
+			}
+
 			slide.classList.add(_this.conf.classes[action]);
 		})
 
-		_next_slide.classList.add(_this.conf.classes.active, _this.conf.classes.show);
-		_cur_slide.classList.add(_this.conf.classes.hide);
+		_next_slide.classList.add(_this.conf.classes.activeClass, _this.conf.classes.showClass);
+		_cur_slide.classList.add(_this.conf.classes.hideClass);
 
 
 		_this.conf.current.slide = next;
@@ -99,7 +102,7 @@ window.kontext = function( _slider, _bullet ) {
 
 		_this.c.slider.addEventListener( 'touchstart', function( event ) {
 			_this.conf.touchEvents.Consumed = false;
-			lastX = event.touches[0].clientX;
+			lastX = event.touches[0].pageX;
 		}, false );
 
 		_this.c.slider.addEventListener( 'touchmove', function( event ) {
@@ -108,21 +111,23 @@ window.kontext = function( _slider, _bullet ) {
 				return false;
 			}
 			if( !_this.conf.touchEvents.Consumed ) {
-				if( event.touches[0].clientX > lastX + 50 ) {
+				if( event.touches[0].pageX > lastX + 50 ) {
 					_this.f.prev();
 					_this.conf.touchEvents.Consumed = true;
 				}
-				else if( event.touches[0].clientX < lastX - 50 ) {
+				else if( event.touches[0].pageX < lastX - 50 ) {
 					_this.f.next();
 					_this.conf.touchEvents.Consumed = true;
 				}
 			}
 		}, false );
+
 	}
 
 	_this.f.afterAnimate = function(element) {
 		$(element).one(_this.conf.animationEvents, function() {
 			_this.action = false;
+			_this.conf.touchEvents.Consumed = false;
 			_this.f.autoPlay();
 		})
 	}
