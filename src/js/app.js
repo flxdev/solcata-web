@@ -102,6 +102,7 @@ function Menu(){
 			
 	});
 	area.add(close).on('click', function(){
+		posY = $(".scroll").offset().top;
 		tl
 			.set(trigger, {className: '-=open'})
 			.set(area,{className: "-=visible"})
@@ -110,7 +111,6 @@ function Menu(){
 		view.removeClass('return');
 		mainScrollInit.init();
 		mainScrollInit.scrollToElement(posY);
-		mainScrollInit.update();
 	});
 	content.on('click', function(event){
 		event.stopPropagation();
@@ -635,7 +635,9 @@ var mainScroll = ".viewport",
 window.onload =  function(){
 	mainScrollInit = new customScroll(mainScroll);
 	scrollPopupInit = new customScroll(scrollPopup);
-	// scrollModalInit = new customScroll(scrollModal);
+	if($(scrollModal).length){
+		scrollModalInit = new customScroll(scrollModal);
+	}	
 
 	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 	var pull = new PullMobile;
@@ -755,8 +757,10 @@ function loadProject(link) {
 					} else {
 						$('.viewport').removeClass('logistics');
 					};
-					mainScrollInit.scrollUp();
-					mainScrollInit.update();
+					setTimeout(function(){
+						mainScrollInit.scrollUp();
+						mainScrollInit.update();
+					}, 500);
 					_doReset();
 					setTimeout(function(){
 						$('#pageloader').html(nav);
@@ -845,14 +849,12 @@ function popups(data) {
 		duration: duration,
 		complete: function() {
 			popupWrap.addClass("visible");
-			scrollModalInit.update();
+			scrollPopupInit.update();
 		}
 	});
 
-	close.off('click.popup').on("click.popup", function() {
+	close.one("click", function() {
 		posY = $(".scroll").offset().top;
-		mainScrollInit.init();
-		mainScrollInit.scrollToElement(posY);
 
 		popup.fadeOut({
 			duration: duration,
@@ -861,6 +863,8 @@ function popups(data) {
 				popupBody.removeClass("hide");
 				popupSuccess.removeClass("show");
 				form.trigger("reset");
+				mainScrollInit.init();
+				mainScrollInit.scrollToElement(posY);
 				
 			}
 		})
